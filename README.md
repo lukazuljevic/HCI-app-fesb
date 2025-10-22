@@ -25,5 +25,5 @@
 
 ### Semester Assignments
 
-- Link to Assignment 1: [**Assignment 1**](https://drive.google.com/file/d/1K1qJyKUbno3wWS6EiBesS6-KDJvlFuiO/view?usp=drive_link) <!-- Replace with actual URL -->
+- Link to Assignment 1: [**Assignment 1**](https://github.com/lukazuljevic/HCI-app-fesb/tree/main/assigments/assigment_1) <!-- Replace with actual URL -->
 <!-- Add more assignments as necessary -->
