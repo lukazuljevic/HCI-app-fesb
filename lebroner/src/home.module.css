@@ -1,0 +1,12 @@
+.container {
+  padding: 2rem;
+}
+.title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
