@@ -18,7 +18,7 @@
 
 ### Semester Project
 
-- Link to your production version: ~~**Production Version**~~ <!-- Replace with actual URL -->
+- Link to your production version: [**Production Version**](https://hci-app-fesb.vercel.app) <!-- Replace with actual URL -->
 - Link to your final report: ~~**Final Report**~~ <!-- Replace with actual URL -->
 
 <!-- Add more as necessary -->
@@ -27,4 +27,5 @@
 
 - Link to Assignment 1: [**Assignment 1**](https://github.com/lukazuljevic/HCI-app-fesb/tree/main/assigments/assigment_1) <!-- Replace with actual URL -->
 - Link to Assignment 2: [**Assignment 2**](https://github.com/lukazuljevic/HCI-app-fesb/tree/main/assigments/assigment_2) <!-- Replace with actual URL -->
+- Link to Assignment 3: [**Assignment 3**](https://hci-app-fesb.vercel.app)
 <!-- Add more assignments as necessary -->
