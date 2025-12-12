@@ -1,0 +1,26 @@
+.footer {
+  width: 100%;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  color: inherit;
+  font-size: 14px;
+}
+
+.brand {
+  font-weight: 600;
+}
+
+.links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.small {
+  opacity: 0.8;
+  font-size: 13px;
+}

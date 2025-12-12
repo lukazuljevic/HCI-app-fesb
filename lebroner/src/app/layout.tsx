@@ -1,6 +1,7 @@
 import React from "react";
 import "../globals.css";
 import Nav from "@/components/Nav/Nav";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata = {
   title: "HCI App",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <Nav />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

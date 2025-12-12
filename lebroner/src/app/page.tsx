@@ -1,6 +1,4 @@
-import { ROUTES } from "@/constants/routes";
 import styles from "./home.module.css";
-import Link from "next/link";
 
 export default function HomePage() {
   return (

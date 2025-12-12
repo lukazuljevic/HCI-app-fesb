@@ -39,3 +39,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Drizzle ORM / drizzle-kit
+# ignore drizzle-kit generated client/artifacts and local sqlite/db files
+.drizzle/
+drizzle/**/build
+drizzle-kit
+drizzle-kit.json
+
+# migration SQL artifacts or generated migration outputs
+migrations/*.sqlite
+migrations/*.db
+
+# ignore generated DB files under any migrations folder
+**/migrations/*.sqlite
+**/migrations/*.db
+
+# local DB files
+*.sqlite
+*.db
