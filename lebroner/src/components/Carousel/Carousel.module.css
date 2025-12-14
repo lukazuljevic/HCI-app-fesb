@@ -1,0 +1,70 @@
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  padding: 0 60px; /* More space for arrows */
+}
+
+.trackContainer {
+  overflow: hidden;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  /* Removed gap property to simplify math. Using padding on slides instead. */
+}
+
+.slide {
+  flex: 0 0 33.333%; /* 3 items default */
+  box-sizing: border-box;
+  padding: 0 10px; /* This creates the visual 20px gap (10px left + 10px right) */
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.leftArrow {
+  left: 0;
+}
+
+.rightArrow {
+  right: 0;
+}
+
+.arrow:hover:not(:disabled) {
+  background: rgba(85, 37, 131, 0.8); /* Lakers Purple */
+  border-color: #FDB927; /* Lakers Gold */
+}
+
+.arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  .slide {
+    flex: 0 0 50%; /* 2 items */
+  }
+}
+
+@media (max-width: 600px) {
+  .slide {
+    flex: 0 0 100%; /* 1 item */
+  }
+}

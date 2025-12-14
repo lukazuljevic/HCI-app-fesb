@@ -1,26 +1,59 @@
 .footer {
-  width: 100%;
-  padding: 20px 24px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: transparent;
-  color: inherit;
-  font-size: 14px;
+  background: #000;
+  color: #fff;
+  padding: 4rem 2rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
 }
 
-.brand {
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.brand h3 {
+  font-size: 1.5rem;
+  color: #FDB927; /* Lakers Gold */
+  margin-bottom: 1rem;
+}
+
+.brand p {
+  color: #888;
+  line-height: 1.6;
+}
+
+.column h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
   font-weight: 600;
 }
 
 .links {
   display: flex;
-  gap: 12px;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
-.small {
-  opacity: 0.8;
-  font-size: 13px;
+.link {
+  color: #aaa;
+  transition: color 0.2s;
+}
+
+.link:hover {
+  color: #FDB927;
+}
+
+.bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
 }
