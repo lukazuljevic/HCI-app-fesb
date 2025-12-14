@@ -1,7 +1,10 @@
 import type { Client } from "pg";
+import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import * as schema from "./schema";
 
-const cached: { client?: Client; drizzle?: unknown } = {};
+type DrizzleDB = NodePgDatabase<typeof schema>;
+
+const cached: { client?: Client; drizzle?: DrizzleDB } = {};
 
 export async function getDrizzle() {
   if (cached.drizzle) return cached.drizzle;
@@ -15,14 +18,12 @@ export async function getDrizzle() {
 
   const [{ Client }] = await Promise.all([await import("pg")]);
 
-  const { drizzle } = await import("drizzle-orm/node-postgres");
   if (!cached.client) {
     cached.client = new Client({ connectionString });
     await cached.client.connect();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cached.drizzle = drizzle(cached.client as unknown as any, { schema });
+  cached.drizzle = drizzle(cached.client, { schema });
   return cached.drizzle;
 }
 
