@@ -39,7 +39,6 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
 
-    // Enforce Admin Role
     if (!session || (session.user as any).role !== "admin") {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
@@ -52,13 +51,13 @@ export async function POST(request: Request) {
       .insert(posts)
       .values({
         ...validated,
-        authorId: session?.user?.id || (session?.user as any).id, // Use authenticated user ID
+        authorId: session?.user?.id || (session?.user as any).id,
       })
       .returning();
 
     return NextResponse.json(newPost[0], { status: 201 });
   } catch (error: any) {
-    if (error?.errors) { // Basic Zod check
+    if (error?.errors) { 
         return NextResponse.json({ errors: error.errors }, { status: 400 });
     }
     return NextResponse.json(

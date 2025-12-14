@@ -49,7 +49,6 @@ export async function PUT(
     const validated = updatePostSchema.parse(body);
     const db = await getDrizzle();
     
-    // In a real app, check ownership here
     const updatedPost = await db
       .update(posts)
       .set({ ...validated, updatedAt: new Date() })

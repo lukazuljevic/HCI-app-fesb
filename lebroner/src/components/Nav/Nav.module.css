@@ -4,18 +4,45 @@
   left: 0;
   right: 0;
   display: flex;
-  gap: 2rem;
+  align-items: center;
   padding: 1.25rem 2rem;
   z-index: 1000;
-  background: rgba(20, 20, 20, 0.9); /* Higher opacity dark background */
+  background: rgba(20, 20, 20, 0.9);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
+.logoLink {
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.navLinks {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2rem;
+}
+
+.logoContainer {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #FDB927;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  position: relative;
+}
+
 .link {
-  color: #f0f0f0; /* Off-white for better contrast on dark */
+  color: #f0f0f0;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
@@ -27,7 +54,7 @@
 
 .link:hover {
   background: rgba(255, 255, 255, 0.1);
-  color: #FDB927; /* Lakers Gold hover */
+  color: #FDB927;
   transform: translateY(-2px);
 }
 
@@ -38,11 +65,34 @@
   left: 50%;
   width: 0;
   height: 2px;
-  background: #552583; /* Lakers Purple underline */
+  background: #552583;
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
 
 .link:hover::after {
   width: 80%;
+}
+
+.authContainer {
+  margin-left: auto;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 2;
+}
+
+.adminBadge {
+  color: #FDB927;
+  font-size: 0.8rem;
+  border: 1px solid #FDB927;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.logoutBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }

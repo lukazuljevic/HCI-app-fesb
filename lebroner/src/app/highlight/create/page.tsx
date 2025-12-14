@@ -54,7 +54,7 @@ export default function CreateHighlightPage() {
                 value={videoUrl} 
                 onChange={e => setVideoUrl(e.target.value)} 
                 required 
-                placeholder="https://..."
+                placeholder="https://example.com/video.mp4"
                 style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
             />
         </div>

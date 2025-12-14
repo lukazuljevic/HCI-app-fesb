@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { mutate } from "swr";
 
-// Helper to handle API requests
 async function apiRequest(url: string, method: string, body?: unknown) {
   const res = await fetch(url, {
     method,
@@ -22,7 +21,7 @@ export function useCreatePost() {
     setIsMutating(true);
     try {
       const result = await apiRequest("/api/posts", "POST", data);
-      mutate("/api/posts"); // Revalidate list
+      mutate("/api/posts"); 
       return result;
     } catch(e) {
         throw e;
@@ -41,7 +40,7 @@ export function useDeletePost() {
     setIsMutating(true);
     try {
       await apiRequest(`/api/posts/${id}`, "DELETE");
-      mutate("/api/posts"); // Revalidate list
+      mutate("/api/posts"); 
     } catch(e) {
         throw e;
     } finally {
@@ -79,7 +78,6 @@ export function useCreateUser() {
     try {
       const result = await apiRequest("/api/users", "POST", data);
       mutate("/api/users");
-      // Also maybe revalidate other things if needed
       return result;
     } catch(e) {
         throw e;

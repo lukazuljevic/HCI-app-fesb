@@ -3,16 +3,28 @@
   position: relative;
   overflow: hidden;
   background: black;
+  padding-top: 100px;
 }
 
 .hero {
-  height: 100vh;
+  height: 75vh;
   width: 100%;
+  margin: 0 auto;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1;
+}
+
+.heroImageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border: 5px solid #FDB927;
 }
 
 .bgImage {
@@ -62,4 +74,63 @@
   .title {
     font-size: 3rem;
   }
+}
+
+.statsSection {
+    background: #111;
+    padding: 6rem 2rem;
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid #333;
+}
+
+.statsHeader {
+    text-align: center;
+    font-size: 3rem;
+    color: #FDB927;
+    margin-bottom: 4rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.statCard {
+    background: #1e1e1e;
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.statCard:hover {
+    transform: translateY(-10px);
+    border-color: #FDB927;
+}
+
+.statNumber {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.statLabel {
+    font-size: 1.2rem;
+    color: #FDB927;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.statSub {
+    color: #888;
+    font-size: 0.9rem;
 }

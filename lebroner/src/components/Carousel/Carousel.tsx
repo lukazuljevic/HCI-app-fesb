@@ -12,7 +12,6 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
   const [itemsToShow, setItemsToShow] = useState(3);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // Responsive logic to determine how many items to show
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 600) {
@@ -24,7 +23,7 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
       }
     };
 
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -68,7 +67,7 @@ const Carousel: React.FC<CarouselProps> = ({ children }) => {
             <div 
               className={styles.slide} 
               key={index}
-              style={{ flex: `0 0 ${100 / itemsToShow}%` }} // Inline override for responsiveness state sync
+              style={{ flex: `0 0 ${100 / itemsToShow}%` }} 
             >
               {child}
             </div>
