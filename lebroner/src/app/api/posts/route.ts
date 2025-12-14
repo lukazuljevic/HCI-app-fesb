@@ -11,6 +11,8 @@ const createPostSchema = z.object({
   authorId: z.string().uuid(),
 });
 
+import { auth } from "@/auth";
+
 export async function GET() {
   try {
     const db = await getDrizzle();
@@ -35,15 +37,33 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const session = await auth();
+
+    // Enforce Admin Role
+    if (!session || (session.user as any).role !== "admin") {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+
     const body = await request.json();
     const validated = createPostSchema.parse(body);
+
     const db = await getDrizzle();
-    const newPost = await db.insert(posts).values(validated).returning();
+    const newPost = await db
+      .insert(posts)
+      .values({
+        ...validated,
+        authorId: session?.user?.id || (session?.user as any).id, // Use authenticated user ID
+      })
+      .returning();
+
     return NextResponse.json(newPost[0], { status: 201 });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: (error as any).errors }, { status: 400 });
+  } catch (error: any) {
+    if (error?.errors) { // Basic Zod check
+        return NextResponse.json({ errors: error.errors }, { status: 400 });
     }
-    return NextResponse.json({ error: "Failed to create post" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Error creating post", error: error.message },
+      { status: 500 }
+    );
   }
 }

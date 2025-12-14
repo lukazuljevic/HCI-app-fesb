@@ -23,17 +23,33 @@ export async function GET() {
   }
 }
 
+import { auth } from "@/auth";
+
 export async function POST(request: Request) {
   try {
+    const session = await auth();
+
+    if (!session || (session.user as any).role !== "admin") {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+
     const body = await request.json();
     const validated = createHighlightSchema.parse(body);
+
     const db = await getDrizzle();
-    const newHighlight = await db.insert(highlights).values(validated).returning();
+    const newHighlight = await db
+      .insert(highlights)
+      .values(validated)
+      .returning();
+
     return NextResponse.json(newHighlight[0], { status: 201 });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: (error as any).errors }, { status: 400 });
+  } catch (error: any) {
+    if (error?.errors) {
+        return NextResponse.json({ errors: error.errors }, { status: 400 });
     }
-    return NextResponse.json({ error: "Failed to create highlight" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Error creating highlight", error: error.message },
+      { status: 500 }
+    );
   }
 }

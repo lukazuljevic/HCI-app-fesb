@@ -8,6 +8,13 @@
       "when": 1765704313453,
       "tag": "0000_thick_silver_centurion",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1765719828342,
+      "tag": "0001_black_squadron_supreme",
+      "breakpoints": true
     }
   ]
 }
