@@ -1,4 +1,5 @@
 import type { Client } from "pg";
+import * as schema from "./schema";
 
 const cached: { client?: Client; drizzle?: unknown } = {};
 
@@ -21,7 +22,7 @@ export async function getDrizzle() {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cached.drizzle = drizzle(cached.client as unknown as any);
+  cached.drizzle = drizzle(cached.client as unknown as any, { schema });
   return cached.drizzle;
 }
 
