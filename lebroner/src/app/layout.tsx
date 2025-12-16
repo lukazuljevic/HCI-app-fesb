@@ -1,5 +1,6 @@
 import React from "react";
 import "../globals.css";
+import { Providers } from "./providers";
 import Nav from "@/components/Nav/Nav";
 import Footer from "@/components/Footer/Footer";
 
@@ -16,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Nav />
-        <main>{children}</main>
-        <Footer />
+        <Providers>
+            <Nav />
+            <main>{children}</main>
+            <Footer />
+        </Providers>
       </body>
     </html>
   );

@@ -1,32 +1,68 @@
-import styles from "./blog.module.css";
-import { auth } from "@/auth";
-import Link from "next/link";
+"use client";
 
-export default async function BlogPage() {
-  const session = await auth();
+import { useState } from "react";
+import styles from "./blog.module.css";
+import Link from "next/link";
+import { usePosts } from "@/hooks/use-queries";
+import BlogCard from "@/components/BlogCard/BlogCard";
+import { useSession } from "next-auth/react";
+
+const CATEGORIES = ["All", "News", "Game Recap", "Opinion", "Lifestyle"];
+
+export default function BlogPage() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { posts, isLoading } = usePosts(selectedCategory);
+  const { data: session } = useSession();
   const isAdmin = (session?.user as any)?.role === "admin";
 
   return (
     <div className={styles.container}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
-        <h1 className={styles.title}>Blog</h1>
         {isAdmin && (
-            <Link 
-                href="/blog/create"
-                style={{
-                    background: "#FDB927",
-                    color: "black",
-                    padding: "0.5rem 1rem",
-                    borderRadius: "4px",
-                    fontWeight: "bold",
-                    fontSize: "0.9rem"
-                }}
-            >
+            <Link href="/blog/create" className={styles.addButton}>
                 + Add Post
             </Link>
         )}
+      <section className={styles.hero}>
+        <div className={styles.contentWrapper}>
+          <h1 className={styles.heroTitle}>Blogs</h1>
+        </div>
+      </section>
+
+      <div className={styles.contentWrapper}>
+        <div className={styles.filters}>
+            <label className={styles.filterLabel}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6H20" stroke="#666" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M7 12H17" stroke="#666" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M10 18H14" stroke="#666" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+                Filter
+            </label>
+          <select 
+            value={selectedCategory} 
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className={styles.select}
+          >
+            {CATEGORIES.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {isLoading ? (
+          <div className={styles.loading}>Loading posts...</div>
+        ) : !posts || posts.length === 0 ? (
+          <div className={styles.empty}>No posts found in this category.</div>
+        ) : (
+          <div className={styles.grid}>
+            {posts.map((wrapper) => (
+              <BlogCard key={wrapper.post.id} post={wrapper.post} />
+            ))}
+          </div>
+        )}
       </div>
-      <p>Posts will appear here. (Integrate with DB later)</p>
     </div>
   );
-};
+}

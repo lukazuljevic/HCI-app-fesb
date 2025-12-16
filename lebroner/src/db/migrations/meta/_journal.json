@@ -15,6 +15,13 @@
       "when": 1765719828342,
       "tag": "0001_black_squadron_supreme",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765884567945,
+      "tag": "0002_icy_jane_foster",
+      "breakpoints": true
     }
   ]
 }

@@ -11,11 +11,14 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const categoryEnum = pgEnum("category", ["News", "Game Recap", "Opinion", "Lifestyle"]);
+
 export const posts = pgTable("posts", {
   id: uuid("id").primaryKey().defaultRandom(),
   title: text("title").notNull(),
   content: text("content").notNull(),
   imageUrl: text("image_url"),
+  category: categoryEnum("category").default("News").notNull(),
   authorId: uuid("author_id").references(() => users.id).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),

@@ -3,9 +3,10 @@ import { type Highlight, type Post, type User } from "@/db/schema";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export function usePosts() {
-  const { data, error, isLoading, mutate } = useSWR<{ post: Post; author: { id: string; name: string } | null }[]>(
-    "/api/posts",
+export function usePosts(category?: string) {
+  const url = category && category !== "All" ? `/api/posts?category=${category}` : "/api/posts";
+  const { data, error, isLoading, mutate } = useSWR<{ post: Post & { category?: string }; author: { id: string; name: string } | null }[]>(
+    url,
     fetcher
   );
 

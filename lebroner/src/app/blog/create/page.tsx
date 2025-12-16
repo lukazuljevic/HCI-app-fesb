@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 export default function CreatePostPage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [category, setCategory] = useState("News");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -17,7 +18,7 @@ export default function CreatePostPage() {
         const res = await fetch("/api/posts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, content, authorId: "auto" /* Ignored by backend now */ })
+            body: JSON.stringify({ title, content, category, authorId: "auto" })
         });
         
         if (res.ok) {
@@ -46,6 +47,18 @@ export default function CreatePostPage() {
                 required 
                 style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
             />
+        </div>
+        <div>
+            <label style={{ display: "block", marginBottom: "0.5rem" }}>Category</label>
+            <select 
+                value={category} 
+                onChange={e => setCategory(e.target.value)}
+                style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
+            >
+                {["News", "Game Recap", "Opinion", "Lifestyle"].map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                ))}
+            </select>
         </div>
         <div>
             <label style={{ display: "block", marginBottom: "0.5rem" }}>Content</label>

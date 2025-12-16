@@ -8,15 +8,19 @@ const createPostSchema = z.object({
   title: z.string().min(1),
   content: z.string().min(1),
   imageUrl: z.string().optional(),
+  category: z.enum(["News", "Game Recap", "Opinion", "Lifestyle"]).default("News"),
   authorId: z.string().uuid(),
 });
 
 import { auth } from "@/auth";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const category = searchParams.get("category");
+
     const db = await getDrizzle();
-    const allPosts = await db
+    let query = db
       .select({
         post: posts,
         author: {
@@ -26,7 +30,14 @@ export async function GET() {
       })
       .from(posts)
       .leftJoin(users, eq(posts.authorId, users.id))
-      .orderBy(desc(posts.createdAt));
+      .orderBy(desc(posts.createdAt))
+      .$dynamic();
+
+    if (category && category !== "All") {
+        query = query.where(eq(posts.category, category as any));
+    }
+
+    const allPosts = await query;
       
     return NextResponse.json(allPosts);
   } catch (error) {
