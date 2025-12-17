@@ -25,8 +25,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--color-border-light);
+  border: 1px solid var(--color-border-light);
   color: white;
   width: 40px;
   height: 40px;
@@ -48,8 +48,8 @@
 }
 
 .arrow:hover:not(:disabled) {
-  background: rgba(85, 37, 131, 0.8); /* Lakers Purple */
-  border-color: #FDB927; /* Lakers Gold */
+  background: var(--color-secondary); /* Lakers Purple */
+  border-color: var(--color-primary); /* Lakers Gold */
 }
 
 .arrow:disabled {

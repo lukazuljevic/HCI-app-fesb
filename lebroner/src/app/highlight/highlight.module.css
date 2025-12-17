@@ -1,6 +1,7 @@
 .container {
   min-height: 100vh;
   padding-bottom: 4rem;
+    padding-top: 100px;
 }
 
 .hero {
@@ -11,7 +12,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 3rem;
-  border-bottom: 4px solid #FDB927;
+  border-bottom: 4px solid var(--color-primary);
 }
 
 .heroContent {
@@ -32,7 +33,7 @@
 
 .heroText {
     font-size: 1.1rem;
-    color: #ddd;
+    color: var(--color-text-main);
     max-width: 600px;
     line-height: 1.6;
 }
@@ -55,12 +56,12 @@
     color: white;
     font-weight: bold;
     text-transform: uppercase;
-    border-left: 4px solid #FDB927;
+    border-left: 4px solid var(--color-primary);
     padding-left: 1rem;
 }
 
 .addButton {
-  background: #FDB927;
+  background: var(--color-primary);
   color: black;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -69,8 +70,8 @@
 }
 
 .filterBadge {
-    background: #333;
-    color: #aaa;
+    background: var(--color-text-muted);
+    color: var(--color-text-secondary);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;

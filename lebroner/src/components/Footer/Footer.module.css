@@ -1,8 +1,8 @@
 .footer {
-  background: #000;
+  background: var(--color-bg-dark);
   color: #fff;
   padding: 4rem 2rem 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border-light);
   margin-top: auto;
 }
 
@@ -17,12 +17,12 @@
 
 .brand h3 {
   font-size: 1.5rem;
-  color: #FDB927; /* Lakers Gold */
+  color: var(--color-primary); /* Lakers Gold */
   margin-bottom: 1rem;
 }
 
 .brand p {
-  color: #888;
+  color: var(--color-text-tertiary);
   line-height: 1.6;
 }
 
@@ -40,20 +40,20 @@
 }
 
 .link {
-  color: #aaa;
+  color: var(--color-text-secondary);
   transition: color 0.2s;
 }
 
 .link:hover {
-  color: #FDB927;
+  color: var(--color-primary);
 }
 
 .bottom {
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid var(--color-border-subtle);
   text-align: center;
-  color: #666;
+  color: var(--color-text-muted);
   font-size: 0.9rem;
 }

@@ -1,5 +1,5 @@
 .card {
-  background: #1e1e1e;
+  background: var(--color-bg-card);
   border-radius: 8px;
   overflow: hidden;
   display: flex;
@@ -11,7 +11,7 @@
   position: relative;
   width: 100%;
   padding-top: 56.25%; /* 16:9 Aspect Ratio */
-  background: #000;
+  background: var(--color-bg-dark);
 }
 
 .video {
@@ -35,7 +35,7 @@
   justify-content: space-between;
   margin-bottom: 0.5rem;
   font-size: 0.75rem;
-  color: #FDB927;
+  color: var(--color-primary);
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -49,6 +49,6 @@
 
 .description {
   font-size: 0.85rem;
-  color: #aaa;
+  color: var(--color-text-secondary);
   margin-bottom: 1rem;
 }

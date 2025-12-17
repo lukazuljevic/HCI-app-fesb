@@ -1,3 +1,23 @@
+:root {
+  --color-primary: #FDB927;     
+  --color-secondary: #552583;    
+
+  --color-bg-body: #121212;
+  --color-bg-card: #1e1e1e;
+  --color-bg-section: #1a1a1a;
+  --color-bg-dark: #000000;
+  --color-bg-overlay: rgba(20, 20, 20, 0.9);
+
+  --color-text-main: #e0e0e0;
+  --color-text-heading: #ffffff;
+  --color-text-secondary: #aaaaaa;
+  --color-text-tertiary: #888888;
+  --color-text-muted: #666666;
+
+  --color-border-light: rgba(255, 255, 255, 0.1);
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+}
+
 html,
 body {
   max-width: 100vw;
@@ -7,17 +27,14 @@ body {
 
 body {
   color: #e0e0e0;
-  background: #121212; /* Dark background to prevent white strips */
+  background: #121212; 
   font-family: Arial, Helvetica, sans-serif;
-  /* padding-top: 80px;  <-- REMOVED to fix spacing issues */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 main {
   min-height: 100vh;
-  /* Add top padding here or in page containers if needed for sticky nav, 
-     but allow hero sections to go to top */
 }
 
 * {
