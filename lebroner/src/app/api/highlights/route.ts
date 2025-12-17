@@ -8,6 +8,8 @@ const createHighlightSchema = z.object({
   title: z.string().min(1),
   description: z.string().optional(),
   videoUrl: z.string().url(),
+  team: z.enum(["Lakers", "Cavaliers", "Heat", "USA"]).default("Lakers"),
+  year: z.string().min(4),
 });
 
 export async function GET() {

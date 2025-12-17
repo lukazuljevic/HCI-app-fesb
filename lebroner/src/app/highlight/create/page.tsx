@@ -7,6 +7,8 @@ export default function CreateHighlightPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
+  const [team, setTeam] = useState("Lakers");
+  const [year, setYear] = useState("2024");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -18,7 +20,7 @@ export default function CreateHighlightPage() {
         const res = await fetch("/api/highlights", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, description, videoUrl })
+            body: JSON.stringify({ title, description, videoUrl, team, year })
         });
         
         if (res.ok) {
@@ -47,6 +49,32 @@ export default function CreateHighlightPage() {
                 required 
                 style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
             />
+        </div>
+        <div>
+            <div style={{ display: "flex", gap: "1rem" }}>
+                <div style={{ flex: 1 }}>
+                     <label style={{ display: "block", marginBottom: "0.5rem" }}>Team</label>
+                     <select 
+                        value={team} 
+                        onChange={e => setTeam(e.target.value)}
+                        style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
+                     >
+                        {["Lakers", "Cavaliers", "Heat", "USA"].map(t => (
+                            <option key={t} value={t}>{t}</option>
+                        ))}
+                     </select>
+                </div>
+                <div style={{ flex: 1 }}>
+                    <label style={{ display: "block", marginBottom: "0.5rem" }}>Year</label>
+                    <input 
+                        value={year} 
+                        onChange={e => setYear(e.target.value)} 
+                        required 
+                        placeholder="e.g. 2024"
+                        style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
+                    />
+                </div>
+            </div>
         </div>
         <div>
             <label style={{ display: "block", marginBottom: "0.5rem" }}>Video URL</label>

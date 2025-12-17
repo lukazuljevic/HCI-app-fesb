@@ -24,11 +24,15 @@ export const posts = pgTable("posts", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const teamEnum = pgEnum("team", ["Lakers", "Cavaliers", "Heat", "USA"]);
+
 export const highlights = pgTable("highlights", {
   id: uuid("id").primaryKey().defaultRandom(),
   title: text("title").notNull(),
   description: text("description"),
   videoUrl: text("video_url").notNull(),
+  team: teamEnum("team").default("Lakers").notNull(),
+  year: text("year").default("2024").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

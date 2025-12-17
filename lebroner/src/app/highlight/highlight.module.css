@@ -1,8 +1,80 @@
 .container {
-  padding: 2rem;
-  padding-top: 100px; /* Account for fixed navbar */
   min-height: 100vh;
+  padding-bottom: 4rem;
 }
-.title {
-  font-size: 1.75rem;
+
+.hero {
+  height: 40vh;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1574602305366-eb9a274d754e?q=80&w=1000&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center 20%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+  border-bottom: 4px solid #FDB927;
+}
+
+.heroContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.heroText {
+    font-size: 1.1rem;
+    color: #ddd;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.section {
+  max-width: 1200px;
+  margin: 0 auto 4rem auto;
+  padding: 0 2rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-left: 4px solid #FDB927;
+    padding-left: 1rem;
+}
+
+.addButton {
+  background: #FDB927;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.filterBadge {
+    background: #333;
+    color: #aaa;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
