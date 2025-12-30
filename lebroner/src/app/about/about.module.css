@@ -134,3 +134,34 @@
     color: var(--color-text-tertiary);
     font-size: 0.9rem;
 }
+@media (max-width: 768px) {
+  .hero {
+    height: 50vh;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .statsSection {
+    padding: 3rem 1rem;
+  }
+  
+  .statsHeader {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .container {
+    padding-top: 80px;
+  }
+}
