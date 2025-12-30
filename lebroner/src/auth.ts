@@ -48,7 +48,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: user.email,
             role: user.role as "admin" | "user",
           };
-        } catch (error) {
+        } catch (_error) {
           return null;
         }
       },

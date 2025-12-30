@@ -23,8 +23,6 @@ export function useCreatePost() {
       const result = await apiRequest("/api/posts", "POST", data);
       mutate("/api/posts"); 
       return result;
-    } catch(e) {
-        throw e;
     } finally {
       setIsMutating(false);
     }
@@ -41,8 +39,6 @@ export function useDeletePost() {
     try {
       await apiRequest(`/api/posts/${id}`, "DELETE");
       mutate("/api/posts"); 
-    } catch(e) {
-        throw e;
     } finally {
       setIsMutating(false);
     }
@@ -60,8 +56,6 @@ export function useCreateHighlight() {
       const result = await apiRequest("/api/highlights", "POST", data);
       mutate("/api/highlights");
       return result;
-    } catch(e) {
-        throw e;
     } finally {
       setIsMutating(false);
     }
@@ -79,8 +73,6 @@ export function useCreateUser() {
       const result = await apiRequest("/api/users", "POST", data);
       mutate("/api/users");
       return result;
-    } catch(e) {
-        throw e;
     } finally {
       setIsMutating(false);
     }

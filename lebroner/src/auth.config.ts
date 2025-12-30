@@ -7,6 +7,7 @@ declare module "next-auth" {
     interface Session {
         user: {
             role?: "admin" | "user";
+            id?: string;
         } & import("next-auth").DefaultSession["user"];
     }
 }
@@ -34,7 +35,9 @@ export const authConfig = {
     session({ session, token }) {
       if (session.user) {
         session.user.role = token.role;
-        (session.user as any).id = token.id;
+        if (token.id) {
+          session.user.id = token.id;
+        }
       }
       return session;
     },

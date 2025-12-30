@@ -13,7 +13,7 @@ export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { posts, isLoading } = usePosts(selectedCategory);
   const { data: session } = useSession();
-  const isAdmin = (session?.user as any)?.role === "admin";
+  const isAdmin = session?.user?.role === "admin";
 
   return (
     <div className={styles.container}>

@@ -10,14 +10,14 @@ import { useSession } from "next-auth/react";
 export default function HighlightPage() {
   const { highlights, isLoading } = useHighlights();
   const { data: session } = useSession();
-  const isAdmin = (session?.user as any)?.role === "admin";
+  const isAdmin = session?.user?.role === "admin";
 
-  const currentYear = "2024";
+  const currentYear = new Date().getFullYear().toString();
   const featuredTeam = "Lakers";
 
   // Client-side filtering
-  const yearHighlights = highlights?.filter(h => (h as any).year === currentYear) || [];
-  const teamHighlights = highlights?.filter(h => (h as any).team === featuredTeam) || [];
+  const yearHighlights = highlights?.filter(h => h.year === currentYear) || [];
+  const teamHighlights = highlights?.filter(h => h.team === featuredTeam) || [];
   
   // For 'All Time', we might want to exclude current year if desired, but protype says "All time", so let's use all.
   const allHighlights = highlights || [];
@@ -53,7 +53,7 @@ export default function HighlightPage() {
         {isLoading ? <p>Loading...</p> : (
             <Carousel>
                 {yearHighlights.length > 0 ? yearHighlights.map(h => (
-                    <HighlightCard key={h.id} highlight={h as any} />
+                    <HighlightCard key={h.id} highlight={h} />
                 )) : [
                    <p key="no-data" style={{color: '#666', padding: '2rem'}}>No highlights from {currentYear} yet.</p>
                 ]}
@@ -72,7 +72,7 @@ export default function HighlightPage() {
          {isLoading ? <p>Loading...</p> : (
             <Carousel>
                 {allHighlights.length > 0 ? allHighlights.map(h => (
-                    <HighlightCard key={h.id} highlight={h as any} />
+                    <HighlightCard key={h.id} highlight={h} />
                 )) : [
                     <p key="no-data" style={{color: '#666', padding: '2rem'}}>No highlights found.</p>
                 ]}
@@ -91,7 +91,7 @@ export default function HighlightPage() {
          {isLoading ? <p>Loading...</p> : (
             <Carousel>
                  {teamHighlights.length > 0 ? teamHighlights.map(h => (
-                    <HighlightCard key={h.id} highlight={h as any} />
+                    <HighlightCard key={h.id} highlight={h} />
                 )) : [
                     <p key="no-data" style={{color: '#666', padding: '2rem'}}>No highlights for {featuredTeam} yet.</p>
                 ]}

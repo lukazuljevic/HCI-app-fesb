@@ -5,8 +5,8 @@ import Nav from "@/components/Nav/Nav";
 import Footer from "@/components/Footer/Footer";
 
 export const metadata = {
-  title: "HCI App",
-  description: "Migrated to App Router",
+  title: "LeBroner - LeBron James Fan Club",
+  description: "The ultimate destination for fans of King James. Stats, highlights, and the legacy of the greatest of all time.",
 };
 
 export default function RootLayout({

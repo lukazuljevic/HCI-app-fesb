@@ -13,7 +13,13 @@ const createUserSchema = z.object({
 export async function GET() {
   try {
     const db = await getDrizzle();
-    const allUsers = await db.select().from(users);
+    const allUsers = await db.select({
+      id: users.id,
+      name: users.name,
+      email: users.email,
+      role: users.role,
+      createdAt: users.createdAt,
+    }).from(users);
     return NextResponse.json(allUsers);
   } catch (error) {
     return NextResponse.json({ error: "Failed to fetch users" }, { status: 500 });

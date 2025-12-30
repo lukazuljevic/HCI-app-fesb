@@ -7,9 +7,10 @@ import { logout } from "@/actions/auth-actions";
 import Image from "next/image";
 import logo from "../../assets/logo.png";
 import { useState } from "react";
+import type { Session } from "next-auth";
 
 interface NavClientProps {
-  session: any; // Type accurately if possible, usually Session | null
+  session: Session | null;
   isAdmin: boolean;
 }
 
@@ -62,7 +63,7 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
                     </form>
                 </>
             ) : (
-                 <Link className={styles.link} href="/login" onClick={() => setIsMenuOpen(false)}>
+                 <Link className={styles.link} href={ROUTES.LOGIN} onClick={() => setIsMenuOpen(false)}>
                     Login
                 </Link>
             )}

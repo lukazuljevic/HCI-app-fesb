@@ -9,7 +9,6 @@ const createPostSchema = z.object({
   content: z.string().min(1),
   imageUrl: z.string().optional(),
   category: z.enum(["News", "Game Recap", "Opinion", "Lifestyle"]).default("News"),
-  authorId: z.string().uuid(),
 });
 
 import { auth } from "@/auth";
@@ -34,7 +33,8 @@ export async function GET(request: Request) {
       .$dynamic();
 
     if (category && category !== "All") {
-        query = query.where(eq(posts.category, category as any));
+        const validCategory = category as "News" | "Game Recap" | "Opinion" | "Lifestyle";
+        query = query.where(eq(posts.category, validCategory));
     }
 
     const allPosts = await query;
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
 
-    if (!session || (session.user as any).role !== "admin") {
+    if (!session || session.user?.role !== "admin") {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
 
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
       .insert(posts)
       .values({
         ...validated,
-        authorId: session?.user?.id || (session?.user as any).id,
+        authorId: session.user.id!,
       })
       .returning();
 

@@ -18,7 +18,7 @@ export default function CreatePostPage() {
         const res = await fetch("/api/posts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, content, category, authorId: "auto" })
+            body: JSON.stringify({ title, content, category })
         });
         
         if (res.ok) {

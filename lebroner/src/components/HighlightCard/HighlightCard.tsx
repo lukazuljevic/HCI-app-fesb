@@ -2,7 +2,7 @@ import styles from "./HighlightCard.module.css";
 import { type Highlight } from "@/db/schema";
 
 interface HighlightCardProps {
-  highlight: Highlight & { team?: string; year?: string };
+  highlight: Highlight;
 }
 
 export default function HighlightCard({ highlight }: HighlightCardProps) {
@@ -18,8 +18,8 @@ export default function HighlightCard({ highlight }: HighlightCardProps) {
       </div>
       <div className={styles.content}>
         <div className={styles.meta}>
-            <span>{highlight.team || "Lakers"}</span>
-            <span>{highlight.year || "2024"}</span>
+            <span>{highlight.team}</span>
+            <span>{highlight.year}</span>
         </div>
         <h3 className={styles.title}>{highlight.title}</h3>
         {highlight.description && (
