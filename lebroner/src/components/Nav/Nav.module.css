@@ -18,8 +18,7 @@
 .navHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  gap: 1rem;
 }
 
 .logoLink {
@@ -91,11 +90,17 @@
   width: 80%;
 }
 
+/* Desktop auth container - far right */
 .authContainer {
   display: flex;
   gap: 1rem;
   align-items: center;
   margin-left: auto;
+}
+
+/* Mobile auth container - hidden on desktop */
+.authContainerMobile {
+  display: none;
 }
 
 .adminBadge {
@@ -147,10 +152,28 @@
 
   .navHeader {
     width: 100%;
+    justify-content: space-between;
   }
 
   .hamburger {
     display: flex;
+  }
+
+  /* Hide desktop auth container on mobile */
+  .authContainer {
+    display: none;
+  }
+
+  /* Show mobile auth container */
+  .authContainerMobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-subtle);
+    gap: 0.5rem;
+    align-items: center;
   }
 
   .navLinks {
@@ -162,6 +185,8 @@
     left: 0;
     transform: none;
     background: var(--color-bg-overlay);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border-light);
     padding: 1rem 0;
     gap: 0;
@@ -185,15 +210,6 @@
 
   .link::after {
     display: none;
-  }
-
-  .authContainer {
-    flex-direction: column;
-    width: 100%;
-    margin: 0;
-    padding-top: 1rem;
-    border-top: 1px solid var(--color-border-subtle);
-    gap: 0.5rem;
   }
   
   .logoutBtn {

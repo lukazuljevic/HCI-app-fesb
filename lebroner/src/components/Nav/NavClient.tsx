@@ -41,7 +41,7 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
         </button>
       </div>
 
-      <div className={`${styles.navLinks} ${isMenuOpen ? styles.showMenu : ''}`}>
+      <nav className={`${styles.navLinks} ${isMenuOpen ? styles.showMenu : ''}`}>
         <Link className={styles.link} href={ROUTES.BLOG} onClick={() => setIsMenuOpen(false)}>
             Blog
         </Link>
@@ -52,7 +52,8 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
             Highlight
         </Link>
         
-        <div className={styles.authContainer}>
+        {/* Auth container inside nav for mobile */}
+        <div className={styles.authContainerMobile}>
             {session ? (
                 <>
                     {isAdmin && <span className={styles.adminBadge}>ADMIN</span>}
@@ -68,6 +69,24 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
                 </Link>
             )}
         </div>
+      </nav>
+
+      {/* Auth container for desktop - far right */}
+      <div className={styles.authContainer}>
+          {session ? (
+              <>
+                  {isAdmin && <span className={styles.adminBadge}>ADMIN</span>}
+                  <form action={logout}>
+                      <button type="submit" className={`${styles.link} ${styles.logoutBtn}`}>
+                          Logout
+                      </button>
+                  </form>
+              </>
+          ) : (
+               <Link className={styles.link} href={ROUTES.LOGIN} onClick={() => setIsMenuOpen(false)}>
+                  Login
+              </Link>
+          )}
       </div>
     </header>
   );

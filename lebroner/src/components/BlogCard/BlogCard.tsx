@@ -1,14 +1,14 @@
-import Link from "next/link";
 import styles from "./BlogCard.module.css";
 import { type Post } from "@/db/schema";
 
 interface BlogCardProps {
   post: Post & { category?: string; author?: { name: string } };
+  onClick?: () => void;
 }
 
-export default function BlogCard({ post }: BlogCardProps) {
+export default function BlogCard({ post, onClick }: BlogCardProps) {
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={onClick} role="button" tabIndex={0}>
       <div className={styles.imageWrapper}>
         {post.imageUrl ? (
           <img src={post.imageUrl} alt={post.title} className={styles.image} />
@@ -28,9 +28,9 @@ export default function BlogCard({ post }: BlogCardProps) {
         </p>
         <div className={styles.footer}>
           <span>{new Date(post.createdAt).toLocaleDateString()}</span>
-          <Link href={`/blog/${post.id}`} className={styles.readMore}>
+          <span className={styles.readMore}>
             Read More <span>→</span>
-          </Link>
+          </span>
         </div>
       </div>
     </div>
