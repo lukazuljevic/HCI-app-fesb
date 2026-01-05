@@ -45,9 +45,16 @@ export default function HomePage() {
              <div className={styles.aboutImageContainer}>
                 <Image 
                   src={lebronImg} 
+                  alt="" 
+                  fill 
+                  style={{ objectFit: "cover", filter: "blur(20px)", zIndex: 0 }} 
+                  aria-hidden="true"
+                />
+                <Image 
+                  src={lebronImg} 
                   alt="LeBron James" 
                   fill 
-                  style={{ objectFit: "contain", background: "#000" }} 
+                  style={{ objectFit: "contain", zIndex: 1 }} 
                 />
              </div>
           </div>
@@ -121,7 +128,7 @@ export default function HomePage() {
             <Carousel>
             {latestHighlights.map((h) => (
                 <div key={h.id} style={{ height: '450px' }}>
-                    <HighlightCard highlight={h} />
+                    <HighlightCard highlight={h} variant="home" />
                 </div>
             ))}
             </Carousel>

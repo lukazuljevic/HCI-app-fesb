@@ -84,7 +84,7 @@ export default function BlogPage() {
         )}
       </div>
 
-      {/* Blog Modal */}
+
       {selectedPost && (
         <BlogModal
           post={selectedPost.post}

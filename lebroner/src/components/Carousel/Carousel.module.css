@@ -1,7 +1,7 @@
 .carouselContainer {
   position: relative;
   width: 100%;
-  padding: 0 60px; /* More space for arrows */
+  padding: 0 60px; 
 }
 
 .trackContainer {
@@ -12,13 +12,14 @@
 .track {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  /* Removed gap property to simplify math. Using padding on slides instead. */
+  padding: 10px 0; 
+  
 }
 
 .slide {
-  flex: 0 0 33.333%; /* 3 items default */
+  flex: 0 0 33.333%; 
   box-sizing: border-box;
-  padding: 0 10px; /* This creates the visual 20px gap (10px left + 10px right) */
+  padding: 0 10px; 
 }
 
 .arrow {
@@ -48,8 +49,8 @@
 }
 
 .arrow:hover:not(:disabled) {
-  background: var(--color-secondary); /* Lakers Purple */
-  border-color: var(--color-primary); /* Lakers Gold */
+  background: var(--color-secondary); 
+  border-color: var(--color-primary); 
 }
 
 .arrow:disabled {
@@ -59,12 +60,12 @@
 
 @media (max-width: 1024px) {
   .slide {
-    flex: 0 0 50%; /* 2 items */
+    flex: 0 0 50%; 
   }
 }
 
 @media (max-width: 600px) {
   .slide {
-    flex: 0 0 100%; /* 1 item */
+    flex: 0 0 100%; 
   }
 }

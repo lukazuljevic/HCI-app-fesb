@@ -9,9 +9,16 @@ export default function AboutPage() {
         <div className={styles.heroImageContainer}>
             <Image 
                 src={heroImg} 
+                alt="" 
+                fill 
+                style={{ objectFit: "cover", filter: "blur(20px)", zIndex: 0 }} 
+                aria-hidden="true"
+            />
+            <Image 
+                src={heroImg} 
                 alt="LeBron Dunking" 
                 fill 
-                style={{ objectFit: "contain", background: "#000", opacity: 0.6 }} 
+                style={{ objectFit: "contain", opacity: 0.8, zIndex: 1 }} 
             />
         </div>
         

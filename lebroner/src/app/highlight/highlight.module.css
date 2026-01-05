@@ -5,30 +5,25 @@
 }
 
 .hero {
-  height: 40vh;
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1574602305366-eb9a274d754e?q=80&w=1000&auto=format&fit=crop');
+height: 40vh;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2670&auto=format&fit=crop');
   background-size: cover;
-  background-position: center 20%;
+  background-position: center;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 3rem;
   border-bottom: 4px solid var(--color-primary);
 }
 
-.heroContent {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    width: 100%;
-}
 
 .heroTitle {
-  font-size: 3rem;
+ font-size: 4rem;
   font-weight: 800;
   color: white;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .heroText {

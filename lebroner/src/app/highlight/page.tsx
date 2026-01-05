@@ -6,7 +6,7 @@ import { useHighlights } from "@/hooks/use-queries";
 import Carousel from "@/components/Carousel/Carousel";
 import HighlightCard from "@/components/HighlightCard/HighlightCard";
 import { useSession } from "next-auth/react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 export default function HighlightPage() {
   const { highlights, isLoading } = useHighlights();
@@ -17,24 +17,46 @@ export default function HighlightPage() {
   const [selectedYear, setSelectedYear] = useState<string>(currentYear);
   const [selectedTeam, setSelectedTeam] = useState<string>("Lakers");
 
-  // Calculate unique years and teams
+
   const years = useMemo(() => {
-    if (!highlights) return [currentYear];
+    if (!highlights || highlights.length === 0) return [currentYear];
     const uniqueYears = Array.from(new Set(highlights.map(h => h.year)));
     return uniqueYears.sort((a, b) => b.localeCompare(a));
   }, [highlights, currentYear]);
 
   const teams = useMemo(() => {
-    if (!highlights) return ["Lakers"];
+    if (!highlights || highlights.length === 0) return ["Lakers"];
     const uniqueTeams = Array.from(new Set(highlights.map(h => h.team)));
     return uniqueTeams.sort();
   }, [highlights]);
 
-  // Client-side filtering
+
+  useEffect(() => {
+    if (highlights && highlights.length > 0) {
+
+
+        if (years.length > 0 && !years.includes(selectedYear)) {
+             setSelectedYear(years[0]);
+        }
+        else if(years.length > 0 && selectedYear === currentYear && !highlights.some(h => h.year === currentYear)){
+             setSelectedYear(years[0]);
+        }
+    }
+  }, [years, highlights, selectedYear, currentYear]);
+
+  useEffect(() => {
+    if (highlights && highlights.length > 0) {
+         if (teams.length > 0 && !teams.includes(selectedTeam)) {
+             setSelectedTeam(teams[0]);
+        }
+    }
+  }, [teams, highlights, selectedTeam]);
+
+
   const yearHighlights = highlights?.filter(h => h.year === selectedYear) || [];
   const teamHighlights = highlights?.filter(h => h.team === selectedTeam) || [];
   
-  // For 'All Time', we might want to exclude current year if desired, but protype says "All time", so let's use all.
+
   const allHighlights = highlights || [];
 
   return (
@@ -43,10 +65,7 @@ export default function HighlightPage() {
         <div className={styles.heroContent}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div>
-                   <h1 className={styles.heroTitle}>Witness History</h1>
-                   <p className={styles.heroText}>
-                        Relive the greatest moments of King James career. From high-flying dunks to game-winning buzzer beaters, catch every highlight in high definition.
-                   </p>
+                   <h1 className={styles.heroTitle}>HIGHLIGHTS</h1>
                 </div>
                 {isAdmin && (
                     <Link href="/highlight/create" className={styles.addButton}>
@@ -57,7 +76,6 @@ export default function HighlightPage() {
         </div>
       </section>
 
-      {/* Section 1: All Time */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>All Time</h2>
@@ -76,7 +94,7 @@ export default function HighlightPage() {
         )}
       </section>
 
-      {/* Section 2: Per Year */}
+
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Per Year</h2>
@@ -103,7 +121,7 @@ export default function HighlightPage() {
         )}
       </section>
 
-       {/* Section 3: Per Team */}
+
        <section className={styles.section}>
         <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Per Team</h2>

@@ -52,7 +52,7 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
             Highlight
         </Link>
         
-        {/* Auth container inside nav for mobile */}
+
         <div className={styles.authContainerMobile}>
             {session ? (
                 <>
@@ -71,7 +71,7 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
         </div>
       </nav>
 
-      {/* Auth container for desktop - far right */}
+
       <div className={styles.authContainer}>
           {session ? (
               <>

@@ -3,15 +3,16 @@ import { type Highlight } from "@/db/schema";
 
 interface HighlightCardProps {
   highlight: Highlight;
+  variant?: 'default' | 'home';
 }
 
-export default function HighlightCard({ highlight }: HighlightCardProps) {
+export default function HighlightCard({ highlight, variant = 'default' }: HighlightCardProps) {
   return (
     <a 
       href={highlight.videoUrl} 
       target="_blank" 
       rel="noopener noreferrer" 
-      className={styles.card}
+      className={`${styles.card} ${variant === 'home' ? styles.cardHome : ''}`}
     >
       <div className={styles.imageWrapper}>
         {highlight.imageUrl ? (

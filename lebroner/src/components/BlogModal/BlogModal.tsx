@@ -11,7 +11,7 @@ interface BlogModalProps {
 }
 
 export default function BlogModal({ post, authorName, onClose }: BlogModalProps) {
-  // Close on escape key
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -20,7 +20,7 @@ export default function BlogModal({ post, authorName, onClose }: BlogModalProps)
     };
 
     document.addEventListener("keydown", handleEscape);
-    // Prevent body scroll when modal is open
+
     document.body.style.overflow = "hidden";
 
     return () => {
@@ -29,7 +29,7 @@ export default function BlogModal({ post, authorName, onClose }: BlogModalProps)
     };
   }, [onClose]);
 
-  // Close when clicking backdrop
+
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();

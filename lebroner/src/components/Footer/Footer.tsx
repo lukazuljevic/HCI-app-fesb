@@ -27,9 +27,9 @@ const Footer: React.FC = () => {
         <div className={styles.column}>
           <h4>Connect</h4>
           <div className={styles.links}>
-            <a href="#" className={styles.link}>Twitter</a>
-            <a href="#" className={styles.link}>Instagram</a>
-            <a href="#" className={styles.link}>YouTube</a>
+            <a href="https://x.com/KingJames" target="_blank" rel="noopener noreferrer" className={styles.link}>Twitter</a>
+            <a href="https://www.instagram.com/kingjames" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a>
+            <a href="https://www.facebook.com/LeBron" target="_blank" rel="noopener noreferrer" className={styles.link}>Facebook</a>
           </div>
         </div>
       </div>
