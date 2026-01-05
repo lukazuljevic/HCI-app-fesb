@@ -7,14 +7,24 @@ interface HighlightCardProps {
 
 export default function HighlightCard({ highlight }: HighlightCardProps) {
   return (
-    <div className={styles.card}>
-      <div className={styles.videoWrapper}>
-        <video 
-            src={highlight.videoUrl} 
-            className={styles.video} 
-            controls 
-            preload="metadata"
-        />
+    <a 
+      href={highlight.videoUrl} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className={styles.card}
+    >
+      <div className={styles.imageWrapper}>
+        {highlight.imageUrl ? (
+          <img 
+            src={highlight.imageUrl} 
+            alt={highlight.title} 
+            className={styles.image} 
+          />
+        ) : (
+          <div className={styles.placeholderImage}>
+            No Image
+          </div>
+        )}
       </div>
       <div className={styles.content}>
         <div className={styles.meta}>
@@ -30,6 +40,6 @@ export default function HighlightCard({ highlight }: HighlightCardProps) {
             </p>
         )}
       </div>
-    </div>
+    </a>
   );
 }

@@ -7,6 +7,7 @@ import { ROUTES } from "@/constants/routes";
 import Carousel from "@/components/Carousel/Carousel";
 import Image from "next/image";
 import lebronImg from "../assets/lebron.jpg";
+import HighlightCard from "@/components/HighlightCard/HighlightCard";
 
 export default function HomePage() {
   const { posts, isLoading: postsLoading } = usePosts();
@@ -119,13 +120,8 @@ export default function HomePage() {
             <div style={{ paddingTop: '2rem' }}>
             <Carousel>
             {latestHighlights.map((h) => (
-                <div key={h.id} className={styles.card}>
-                 <div className={styles.cardContent}>
-                    <h3 className={styles.cardTitle}>{h.title}</h3>
-                    <div className={styles.videoCardPlaceholder}>
-                        Video Placeholder
-                    </div>
-                 </div>
+                <div key={h.id} style={{ height: '450px' }}>
+                    <HighlightCard highlight={h} />
                 </div>
             ))}
             </Carousel>

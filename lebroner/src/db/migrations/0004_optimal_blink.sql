@@ -1,0 +1,1 @@
+ALTER TABLE "highlights" ADD COLUMN "image_url" text;
