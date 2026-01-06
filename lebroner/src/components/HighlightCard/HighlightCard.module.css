@@ -10,7 +10,7 @@
   cursor: pointer;
   height: 100%;
   min-height: 400px;
-  position: relative; /* Ensure absolute children are positioned relative to card */
+  position: relative;
 }
 
 .card:hover {
@@ -18,7 +18,7 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Delete Button Styles */
+
 .deleteButton {
   position: absolute;
   top: 10px;

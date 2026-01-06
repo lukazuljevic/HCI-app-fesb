@@ -99,7 +99,7 @@ height: 40vh;
     border-color: transparent;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .hero {
     height: 30vh;
   }
@@ -117,8 +117,10 @@ height: 40vh;
   .sectionTitle {
     font-size: 1.25rem;
   }
-  
-  .container {
-    padding-top: 80px;
-  }
+}
+
+@media (max-width: 900px) {
+    .section {
+        padding: 0 1rem;
+    }
 }

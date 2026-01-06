@@ -65,6 +65,12 @@
 }
 
 @media (max-width: 600px) {
+  .carouselContainer {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 600px) {
   .slide {
     flex: 0 0 100%; 
   }
