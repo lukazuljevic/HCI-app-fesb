@@ -4,9 +4,31 @@ import { type Highlight } from "@/db/schema";
 interface HighlightCardProps {
   highlight: Highlight;
   variant?: 'default' | 'home';
+  isAdmin?: boolean;
 }
 
-export default function HighlightCard({ highlight, variant = 'default' }: HighlightCardProps) {
+export default function HighlightCard({ highlight, variant = 'default', isAdmin }: HighlightCardProps) {
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.preventDefault(); 
+    e.stopPropagation();
+    if (!confirm("Are you sure you want to delete this highlight?")) return;
+
+    try {
+      const res = await fetch(`/api/highlights/${highlight.id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        window.location.reload();
+      } else {
+        alert("Failed to delete highlight");
+      }
+    } catch (error) {
+      console.error("Error deleting highlight:", error);
+      alert("Error deleting highlight");
+    }
+  };
+
   return (
     <a 
       href={highlight.videoUrl} 
@@ -14,6 +36,16 @@ export default function HighlightCard({ highlight, variant = 'default' }: Highli
       rel="noopener noreferrer" 
       className={`${styles.card} ${variant === 'home' ? styles.cardHome : ''}`}
     >
+
+      {isAdmin && (
+        <button 
+            onClick={handleDelete}
+            className={styles.deleteButton}
+            title="Delete Highlight"
+        >
+            ×
+        </button>
+      )}
       <div className={styles.imageWrapper}>
         {highlight.imageUrl ? (
           <img 

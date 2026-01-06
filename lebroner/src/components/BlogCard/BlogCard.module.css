@@ -7,11 +7,39 @@
   flex-direction: column;
   height: 100%;
   cursor: pointer;
+  position: relative;
 }
 
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover .deleteButton {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Delete Button Styles */
+.deleteButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
 }
 
 .imageWrapper {

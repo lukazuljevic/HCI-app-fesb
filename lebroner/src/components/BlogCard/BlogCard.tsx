@@ -4,11 +4,41 @@ import { type Post } from "@/db/schema";
 interface BlogCardProps {
   post: Post & { category?: string; author?: { name: string } };
   onClick?: () => void;
+  isAdmin?: boolean;
 }
 
-export default function BlogCard({ post, onClick }: BlogCardProps) {
+export default function BlogCard({ post, onClick, isAdmin }: BlogCardProps) {
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!confirm("Are you sure you want to delete this post?")) return;
+
+    try {
+      const res = await fetch(`/api/posts/${post.id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        window.location.reload(); 
+      } else {
+        alert("Failed to delete post");
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      alert("Error deleting post");
+    }
+  };
+
   return (
     <div className={styles.card} onClick={onClick} role="button" tabIndex={0}>
+      {isAdmin && (
+        <button 
+            onClick={handleDelete}
+            className={styles.deleteButton}
+            title="Delete Post"
+        >
+            ×
+        </button>
+      )}
       <div className={styles.imageWrapper}>
         {post.imageUrl ? (
           <img src={post.imageUrl} alt={post.title} className={styles.image} />
