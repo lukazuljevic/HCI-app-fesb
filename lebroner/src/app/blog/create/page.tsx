@@ -8,6 +8,7 @@ import styles from "./create.module.css";
 export default function CreatePostPage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [category, setCategory] = useState("News");
   const router = useRouter();
   const { trigger: createPost, isMutating } = useCreatePost();
@@ -16,7 +17,7 @@ export default function CreatePostPage() {
     e.preventDefault();
 
     try {
-        await createPost({ title, content, category, authorId: "", imageUrl: "" }); 
+        await createPost({ title, content, category, authorId: "", imageUrl }); 
         
         router.push("/blog");
         router.refresh();
@@ -37,6 +38,15 @@ export default function CreatePostPage() {
                 onChange={e => setTitle(e.target.value)} 
                 required 
                 className={styles.input}
+            />
+        </div>
+        <div>
+            <label className={styles.label}>Image URL (Optional)</label>
+            <input 
+                value={imageUrl} 
+                onChange={e => setImageUrl(e.target.value)} 
+                className={styles.input}
+                placeholder="https://example.com/image.jpg"
             />
         </div>
         <div>

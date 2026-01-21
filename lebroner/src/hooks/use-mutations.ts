@@ -47,22 +47,7 @@ export function useDeletePost() {
   return { trigger, isMutating };
 }
 
-export function useCreateHighlight() {
-  const [isMutating, setIsMutating] = useState(false);
 
-  const trigger = async (data: { title: string; videoUrl: string; description?: string; team?: string; year?: string }) => {
-    setIsMutating(true);
-    try {
-      const result = await apiRequest("/api/highlights", "POST", data);
-      mutate("/api/highlights");
-      return result;
-    } finally {
-      setIsMutating(false);
-    }
-  };
-
-  return { trigger, isMutating };
-}
 
 export function useCreateUser() {
   const [isMutating, setIsMutating] = useState(false);

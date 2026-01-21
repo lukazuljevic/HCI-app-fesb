@@ -17,9 +17,10 @@ interface SelectedPost {
 
 interface BlogClientProps {
   isAdmin: boolean;
+  isLoggedIn: boolean;
 }
 
-export default function BlogClient({ isAdmin }: BlogClientProps) {
+export default function BlogClient({ isAdmin, isLoggedIn }: BlogClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { posts, isLoading } = usePosts(selectedCategory);
   
@@ -44,6 +45,11 @@ export default function BlogClient({ isAdmin }: BlogClientProps) {
 
       <div className={styles.contentWrapper}>
         <div className={styles.filters}>
+          {isLoggedIn && (
+            <Link href="/blog/create" className={styles.addButton}>
+              Add New
+            </Link>
+          )}
             <label className={styles.filterLabel}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 6H20" stroke="#666" strokeWidth="2" strokeLinecap="round"/>
