@@ -28,4 +28,6 @@
 - Link to Assignment 1: [**Assignment 1**](https://github.com/lukazuljevic/HCI-app-fesb/tree/main/assigments/assigment_1) <!-- Replace with actual URL -->
 - Link to Assignment 2: [**Assignment 2**](https://github.com/lukazuljevic/HCI-app-fesb/tree/main/assigments/assigment_2) <!-- Replace with actual URL -->
 - Link to Assignment 3: [**Assignment 3**](https://hci-app-fesb.vercel.app)
+- Link to Assignment 4: [**Assignment 4**](https://github.com/lukazuljevic/HCI-app-fesb/tree/main/assigments/assigment_4) <!-- Replace with actual URL -->
+
 <!-- Add more assignments as necessary -->
