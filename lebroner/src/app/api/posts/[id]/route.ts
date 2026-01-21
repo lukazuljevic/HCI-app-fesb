@@ -3,6 +3,7 @@ import { posts, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { auth } from "@/auth";
 
 const updatePostSchema = z.object({
   title: z.string().min(1).optional(),
@@ -44,6 +45,11 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth();
+    if (!session || session.user?.role !== "admin") {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+
     const { id } = await params;
     const body = await request.json();
     const validated = updatePostSchema.parse(body);
@@ -73,6 +79,11 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth();
+    if (!session || session.user?.role !== "admin") {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+
     const { id } = await params;
     const db = await getDrizzle();
     const deletedPost = await db

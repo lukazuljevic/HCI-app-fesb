@@ -189,6 +189,25 @@
     color: var(--color-text-muted);
 }
 
+.carouselContainer {
+  padding-top: 2rem;
+}
+
+.highlightWrapper {
+  height: 450px;
+}
+
+.heroImageBg {
+  object-fit: cover;
+  filter: blur(20px);
+  z-index: 0;
+}
+
+.heroImageFg {
+  object-fit: contain;
+  z-index: 1;
+}
+
 
 
 @media (max-width: 900px) {

@@ -47,14 +47,14 @@ export default function HomePage() {
                   src={lebronImg} 
                   alt="" 
                   fill 
-                  style={{ objectFit: "cover", filter: "blur(20px)", zIndex: 0 }} 
+                  className={styles.heroImageBg}
                   aria-hidden="true"
                 />
                 <Image 
                   src={lebronImg} 
                   alt="LeBron James" 
                   fill 
-                  style={{ objectFit: "contain", zIndex: 1 }} 
+                  className={styles.heroImageFg}
                 />
              </div>
           </div>
@@ -77,7 +77,7 @@ export default function HomePage() {
             </div>
         ) : latestPosts.length > 0 ? (
           
-             <div style={{ paddingTop: '2rem' }}>
+             <div className={styles.carouselContainer}>
               <Carousel>
               {latestPosts.map((postWrapper) => {
                 const p = postWrapper.post;
@@ -124,17 +124,17 @@ export default function HomePage() {
                 <div className={`${styles.card} ${styles.skeletonCard}`}></div>
             </div>
         ) : latestHighlights.length > 0 ? (
-            <div style={{ paddingTop: '2rem' }}>
+            <div className={styles.carouselContainer}>
             <Carousel>
             {latestHighlights.map((h) => (
-                <div key={h.id} style={{ height: '450px' }}>
+                <div key={h.id} className={styles.highlightWrapper}>
                     <HighlightCard highlight={h} variant="home" />
                 </div>
             ))}
             </Carousel>
            </div>
         ) : (
-            <p style={{ textAlign: 'center', color: '#666' }}>No highlights yet.</p>
+            <p className={styles.emptyState}>No highlights yet.</p>
         )}
       </section>
     </div>

@@ -124,3 +124,14 @@ height: 40vh;
         padding: 0 1rem;
     }
 }
+
+.heroHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.noData {
+    color: #666;
+    padding: 2rem;
+}

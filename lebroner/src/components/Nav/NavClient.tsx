@@ -26,7 +26,7 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
       <div className={styles.navHeader}>
         <Link className={`${styles.link} ${styles.logoLink}`} href={ROUTES.HOME} onClick={() => setIsMenuOpen(false)}>
             <div className={styles.logoContainer}>
-                <Image src={logo} alt="LeBroner Logo" fill style={{ objectFit: "cover" }} />
+                <Image src={logo} alt="LeBroner Logo" fill className={styles.logoImage} />
             </div>
             LeBroner
         </Link>

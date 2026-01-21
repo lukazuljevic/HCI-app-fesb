@@ -58,7 +58,7 @@ export default function HighlightClient({ isAdmin }: HighlightClientProps) {
     <div className={styles.container}>
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+            <div className={styles.heroHeader}>
                 <div>
                    <h1 className={styles.heroTitle}>HIGHLIGHTS</h1>
                 </div>
@@ -79,7 +79,7 @@ export default function HighlightClient({ isAdmin }: HighlightClientProps) {
                 {allHighlights.length > 0 ? allHighlights.map(h => (
                     <HighlightCard key={h.id} highlight={h} isAdmin={isAdmin} />
                 )) : [
-                    <p key="no-data" style={{color: '#666', padding: '2rem'}}>No highlights found.</p>
+                    <p key="no-data" className={styles.noData}>No highlights found.</p>
                 ]}
             </Carousel>
         )}
@@ -105,7 +105,7 @@ export default function HighlightClient({ isAdmin }: HighlightClientProps) {
                 {yearHighlights.length > 0 ? yearHighlights.map(h => (
                     <HighlightCard key={h.id} highlight={h} isAdmin={isAdmin} />
                 )) : [
-                   <p key="no-data" style={{color: '#666', padding: '2rem'}}>No highlights from {selectedYear} yet.</p>
+                   <p key="no-data" className={styles.noData}>No highlights from {selectedYear} yet.</p>
                 ]}
             </Carousel>
         )}
@@ -131,7 +131,7 @@ export default function HighlightClient({ isAdmin }: HighlightClientProps) {
                  {teamHighlights.length > 0 ? teamHighlights.map(h => (
                     <HighlightCard key={h.id} highlight={h} isAdmin={isAdmin} />
                 )) : [
-                    <p key="no-data" style={{color: '#666', padding: '2rem'}}>No highlights for {selectedTeam} yet.</p>
+                    <p key="no-data" className={styles.noData}>No highlights for {selectedTeam} yet.</p>
                 ]}
             </Carousel>
         )}

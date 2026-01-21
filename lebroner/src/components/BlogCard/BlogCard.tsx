@@ -39,7 +39,7 @@ export default function BlogCard({ post, onClick, isAdmin }: BlogCardProps) {
         {post.imageUrl ? (
           <img src={post.imageUrl} alt={post.title} className={styles.image} />
         ) : (
-           <div className={styles.image} style={{ background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#444' }}>
+           <div className={`${styles.image} ${styles.placeholderImage}`}>
              No Image
            </div>
         )}

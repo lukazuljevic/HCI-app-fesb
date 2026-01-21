@@ -57,6 +57,10 @@
   position: relative;
 }
 
+.logoImage {
+  object-fit: cover;
+}
+
 .link {
   color: var(--color-text-heading);
   text-decoration: none;

@@ -11,14 +11,14 @@ export default function AboutPage() {
                 src={heroImg} 
                 alt="" 
                 fill 
-                style={{ objectFit: "cover", filter: "blur(20px)", zIndex: 0 }} 
+                className={styles.heroImageBg}
                 aria-hidden="true"
             />
             <Image 
                 src={heroImg} 
                 alt="LeBron Dunking" 
                 fill 
-                style={{ objectFit: "contain", opacity: 0.8, zIndex: 1 }} 
+                className={styles.heroImageFg} 
             />
         </div>
         

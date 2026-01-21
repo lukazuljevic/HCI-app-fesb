@@ -135,7 +135,20 @@
     color: var(--color-text-tertiary);
     font-size: 0.9rem;
 }
+.heroImageBg {
+  object-fit: cover;
+  filter: blur(20px);
+  z-index: 0;
+}
+
+.heroImageFg {
+  object-fit: contain;
+  opacity: 0.8;
+  z-index: 1;
+}
+
 @media (max-width: 768px) {
+
   .hero {
     height: 50vh;
   }

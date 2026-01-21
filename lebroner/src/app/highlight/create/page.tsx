@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCreateHighlight } from "@/hooks/use-mutations";
+import styles from "./create.module.css";
 
 export default function CreateHighlightPage() {
   const [title, setTitle] = useState("");
@@ -28,76 +29,68 @@ export default function CreateHighlightPage() {
   };
 
   return (
-    <div style={{ padding: "2rem", paddingTop: "100px", minHeight: "100vh", maxWidth: "800px", margin: "0 auto" }}>
-      <h1 style={{ marginBottom: "2rem", color: "#FDB927" }}>Add New Highlight</h1>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Add New Highlight</h1>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <div>
-            <label style={{ display: "block", marginBottom: "0.5rem" }}>Title</label>
+            <label className={styles.label}>Title</label>
             <input 
                 value={title} 
                 onChange={e => setTitle(e.target.value)} 
                 required 
-                style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
+                className={styles.input}
             />
         </div>
         <div>
-            <div style={{ display: "flex", gap: "1rem" }}>
-                <div style={{ flex: 1 }}>
-                     <label style={{ display: "block", marginBottom: "0.5rem" }}>Team</label>
+            <div className={styles.row}>
+                <div className={styles.col}>
+                     <label className={styles.label}>Team</label>
                      <select 
                         value={team} 
                         onChange={e => setTeam(e.target.value)}
-                        style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
+                        className={styles.select}
                      >
                         {["Lakers", "Cavaliers", "Heat", "USA"].map(t => (
                             <option key={t} value={t}>{t}</option>
                         ))}
                      </select>
                 </div>
-                <div style={{ flex: 1 }}>
-                    <label style={{ display: "block", marginBottom: "0.5rem" }}>Year</label>
+                <div className={styles.col}>
+                    <label className={styles.label}>Year</label>
                     <input 
                         value={year} 
                         onChange={e => setYear(e.target.value)} 
                         required 
                         placeholder="e.g. 2024"
-                        style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
+                        className={styles.input}
                     />
                 </div>
             </div>
         </div>
         <div>
-            <label style={{ display: "block", marginBottom: "0.5rem" }}>Video URL</label>
+            <label className={styles.label}>Video URL</label>
             <input 
                 value={videoUrl} 
                 onChange={e => setVideoUrl(e.target.value)} 
                 required 
                 placeholder="https://example.com/video.mp4"
-                style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
+                className={styles.input}
             />
         </div>
         <div>
-            <label style={{ display: "block", marginBottom: "0.5rem" }}>Description</label>
+            <label className={styles.label}>Description</label>
             <textarea 
                 value={description} 
                 onChange={e => setDescription(e.target.value)} 
                 required 
                 rows={5}
-                style={{ width: "100%", padding: "0.5rem", borderRadius: "4px", border: "1px solid #333", background: "#222", color: "white" }}
+                className={styles.textarea}
             />
         </div>
         <button 
             type="submit" 
             disabled={isMutating}
-            style={{ 
-                padding: "1rem", 
-                background: "#FDB927", 
-                color: "black", 
-                border: "none", 
-                fontWeight: "bold", 
-                cursor: isMutating ? "not-allowed" : "pointer",
-                borderRadius: "4px"
-            }}
+            className={styles.button}
         >
             {isMutating ? "Creating..." : "Add Highlight"}
         </button>
