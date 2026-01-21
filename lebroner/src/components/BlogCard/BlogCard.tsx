@@ -1,5 +1,6 @@
 import styles from "./BlogCard.module.css";
 import { type Post } from "@/db/schema";
+import { useDeletePost } from "@/hooks/use-mutations";
 
 interface BlogCardProps {
   post: Post & { category?: string; author?: { name: string } };
@@ -8,20 +9,14 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ post, onClick, isAdmin }: BlogCardProps) {
+  const { trigger: deletePost, isMutating } = useDeletePost();
+
   const handleDelete = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!confirm("Are you sure you want to delete this post?")) return;
 
     try {
-      const res = await fetch(`/api/posts/${post.id}`, {
-        method: "DELETE",
-      });
-
-      if (res.ok) {
-        window.location.reload(); 
-      } else {
-        alert("Failed to delete post");
-      }
+      await deletePost(post.id);
     } catch (error) {
       console.error("Error deleting post:", error);
       alert("Error deleting post");
@@ -35,8 +30,9 @@ export default function BlogCard({ post, onClick, isAdmin }: BlogCardProps) {
             onClick={handleDelete}
             className={styles.deleteButton}
             title="Delete Post"
+            disabled={isMutating}
         >
-            ×
+            {isMutating ? "..." : "×"}
         </button>
       )}
       <div className={styles.imageWrapper}>

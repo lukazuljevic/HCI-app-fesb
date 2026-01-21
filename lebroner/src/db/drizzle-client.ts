@@ -12,7 +12,7 @@ export async function getDrizzle() {
   const connectionString = process.env.DIRECT_URL || process.env.DATABASE_URL;
   if (!connectionString) {
     throw new Error(
-      "Missing DIRECT_URL / DATABASE_URL environment variable. Add it to .env.local"
+      "Missing DIRECT_URL / DATABASE_URL environment variable."
     );
   }
 

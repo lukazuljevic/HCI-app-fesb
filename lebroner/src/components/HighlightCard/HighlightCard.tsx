@@ -1,5 +1,6 @@
 import styles from "./HighlightCard.module.css";
 import { type Highlight } from "@/db/schema";
+import { useDeleteHighlight } from "@/hooks/use-mutations";
 
 interface HighlightCardProps {
   highlight: Highlight;
@@ -8,21 +9,15 @@ interface HighlightCardProps {
 }
 
 export default function HighlightCard({ highlight, variant = 'default', isAdmin }: HighlightCardProps) {
+  const { trigger: deleteHighlight, isMutating } = useDeleteHighlight();
+
   const handleDelete = async (e: React.MouseEvent) => {
     e.preventDefault(); 
     e.stopPropagation();
     if (!confirm("Are you sure you want to delete this highlight?")) return;
 
     try {
-      const res = await fetch(`/api/highlights/${highlight.id}`, {
-        method: "DELETE",
-      });
-
-      if (res.ok) {
-        window.location.reload();
-      } else {
-        alert("Failed to delete highlight");
-      }
+      await deleteHighlight(highlight.id);
     } catch (error) {
       console.error("Error deleting highlight:", error);
       alert("Error deleting highlight");
@@ -42,8 +37,9 @@ export default function HighlightCard({ highlight, variant = 'default', isAdmin 
             onClick={handleDelete}
             className={styles.deleteButton}
             title="Delete Highlight"
+            disabled={isMutating}
         >
-            ×
+            {isMutating ? "..." : "×"}
         </button>
       )}
       <div className={styles.imageWrapper}>

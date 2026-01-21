@@ -17,7 +17,7 @@ async function apiRequest(url: string, method: string, body?: unknown) {
 export function useCreatePost() {
   const [isMutating, setIsMutating] = useState(false);
 
-  const trigger = async (data: { title: string; content: string; authorId: string; imageUrl?: string }) => {
+  const trigger = async (data: { title: string; content: string; category?: string; authorId?: string; imageUrl?: string }) => {
     setIsMutating(true);
     try {
       const result = await apiRequest("/api/posts", "POST", data);
@@ -50,7 +50,7 @@ export function useDeletePost() {
 export function useCreateHighlight() {
   const [isMutating, setIsMutating] = useState(false);
 
-  const trigger = async (data: { title: string; videoUrl: string; description?: string }) => {
+  const trigger = async (data: { title: string; videoUrl: string; description?: string; team?: string; year?: string }) => {
     setIsMutating(true);
     try {
       const result = await apiRequest("/api/highlights", "POST", data);
@@ -73,6 +73,38 @@ export function useCreateUser() {
       const result = await apiRequest("/api/users", "POST", data);
       mutate("/api/users");
       return result;
+    } finally {
+      setIsMutating(false);
+    }
+  };
+
+  return { trigger, isMutating };
+}
+
+export function useDeleteHighlight() {
+  const [isMutating, setIsMutating] = useState(false);
+
+  const trigger = async (id: string) => {
+    setIsMutating(true);
+    try {
+      await apiRequest(`/api/highlights/${id}`, "DELETE");
+      mutate("/api/highlights");
+    } finally {
+      setIsMutating(false);
+    }
+  };
+
+  return { trigger, isMutating };
+}
+
+export function useDeleteUser() {
+  const [isMutating, setIsMutating] = useState(false);
+
+  const trigger = async (id: string) => {
+    setIsMutating(true);
+    try {
+      await apiRequest(`/api/users/${id}`, "DELETE");
+      mutate("/api/users");
     } finally {
       setIsMutating(false);
     }

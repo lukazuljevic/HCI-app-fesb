@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useCreateHighlight } from "@/hooks/use-mutations";
 
 export default function CreateHighlightPage() {
   const [title, setTitle] = useState("");
@@ -9,31 +10,20 @@ export default function CreateHighlightPage() {
   const [videoUrl, setVideoUrl] = useState("");
   const [team, setTeam] = useState("Lakers");
   const [year, setYear] = useState("2024");
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { trigger: createHighlight, isMutating } = useCreateHighlight();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
     try {
-        const res = await fetch("/api/highlights", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ title, description, videoUrl, team, year })
-        });
+        await createHighlight({ title, description, videoUrl, team, year });
         
-        if (res.ok) {
-            router.push("/highlight");
-            router.refresh();
-        } else {
-            alert("Failed to create highlight. Are you admin?");
-        }
+        router.push("/highlight");
+        router.refresh();
     } catch(err) {
         console.error(err);
         alert("Error creating highlight");
-    } finally {
-        setLoading(false);
     }
   };
 
@@ -98,18 +88,18 @@ export default function CreateHighlightPage() {
         </div>
         <button 
             type="submit" 
-            disabled={loading}
+            disabled={isMutating}
             style={{ 
                 padding: "1rem", 
                 background: "#FDB927", 
                 color: "black", 
                 border: "none", 
                 fontWeight: "bold", 
-                cursor: loading ? "not-allowed" : "pointer",
+                cursor: isMutating ? "not-allowed" : "pointer",
                 borderRadius: "4px"
             }}
         >
-            {loading ? "Creating..." : "Add Highlight"}
+            {isMutating ? "Creating..." : "Add Highlight"}
         </button>
       </form>
     </div>
