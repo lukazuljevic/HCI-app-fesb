@@ -5,7 +5,6 @@ import { useHighlights } from "@/hooks/use-queries";
 import Carousel from "@/components/Carousel/Carousel";
 import HighlightCard from "@/components/HighlightCard/HighlightCard";
 import { useState, useMemo, useEffect } from "react";
-import Link from "next/link";
 
 interface HighlightClientProps {
   isAdmin: boolean;

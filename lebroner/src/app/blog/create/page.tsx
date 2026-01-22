@@ -6,10 +6,12 @@ import { useCreatePost } from "@/hooks/use-mutations";
 import styles from "./create.module.css";
 
 export default function CreatePostPage() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [category, setCategory] = useState("News");
+  const [formData, setFormData] = useState({
+    title: "",
+    content: "",
+    imageUrl: "",
+    category: "News"
+  });
   const router = useRouter();
   const { trigger: createPost, isMutating } = useCreatePost();
 
@@ -17,7 +19,13 @@ export default function CreatePostPage() {
     e.preventDefault();
 
     try {
-        await createPost({ title, content, category, authorId: "", imageUrl }); 
+        await createPost({ 
+            title: formData.title, 
+            content: formData.content, 
+            category: formData.category, 
+            authorId: "", 
+            imageUrl: formData.imageUrl 
+        }); 
         
         router.push("/blog");
         router.refresh();
@@ -34,8 +42,8 @@ export default function CreatePostPage() {
         <div>
             <label className={styles.label}>Title</label>
             <input 
-                value={title} 
-                onChange={e => setTitle(e.target.value)} 
+                value={formData.title} 
+                onChange={e => setFormData({ ...formData, title: e.target.value })} 
                 required 
                 className={styles.input}
             />
@@ -43,8 +51,8 @@ export default function CreatePostPage() {
         <div>
             <label className={styles.label}>Image URL (Optional)</label>
             <input 
-                value={imageUrl} 
-                onChange={e => setImageUrl(e.target.value)} 
+                value={formData.imageUrl} 
+                onChange={e => setFormData({ ...formData, imageUrl: e.target.value })} 
                 className={styles.input}
                 placeholder="https://example.com/image.jpg"
             />
@@ -52,8 +60,8 @@ export default function CreatePostPage() {
         <div>
             <label className={styles.label}>Category</label>
             <select 
-                value={category} 
-                onChange={e => setCategory(e.target.value)}
+                value={formData.category} 
+                onChange={e => setFormData({ ...formData, category: e.target.value })}
                 className={styles.select}
             >
                 {["News", "Game Recap", "Opinion", "Lifestyle"].map(cat => (
@@ -64,8 +72,8 @@ export default function CreatePostPage() {
         <div>
             <label className={styles.label}>Content</label>
             <textarea 
-                value={content} 
-                onChange={e => setContent(e.target.value)} 
+                value={formData.content} 
+                onChange={e => setFormData({ ...formData, content: e.target.value })} 
                 required 
                 rows={10}
                 className={styles.textarea}
