@@ -64,8 +64,8 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
                     </form>
                 </>
             ) : (
-                 <Link className={styles.link} href={ROUTES.LOGIN} onClick={() => setIsMenuOpen(false)}>
-                    Login
+                 <Link className={`${styles.link} ${styles.ctaLink}`} href={ROUTES.LOGIN} onClick={() => setIsMenuOpen(false)}>
+                    Post Blogs
                 </Link>
             )}
         </div>
@@ -83,8 +83,8 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
                   </form>
               </>
           ) : (
-               <Link className={styles.link} href={ROUTES.LOGIN} onClick={() => setIsMenuOpen(false)}>
-                  Login
+               <Link className={`${styles.link} ${styles.ctaLink}`} href={ROUTES.LOGIN} onClick={() => setIsMenuOpen(false)}>
+                  Post Blogs
               </Link>
           )}
       </div>

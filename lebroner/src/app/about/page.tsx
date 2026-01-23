@@ -20,6 +20,8 @@ export default function AboutPage() {
                 fill 
                 className={styles.heroImageFg} 
             />
+            <div className={styles.heroOverlay}></div>
+            <div className={styles.heroGradient}></div>
         </div>
         
         <div className={styles.content}>

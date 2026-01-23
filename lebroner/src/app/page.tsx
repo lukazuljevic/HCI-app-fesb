@@ -18,12 +18,7 @@ export default function HomePage() {
 
   return (
     <div className={styles.container}>
-      <section className={styles.hero}>
-        <h1 className={styles.title}>LeBron James Fan Club</h1>
-        <p className={styles.subtitle}>
-          Celebrating the career and legacy of the King. From Akron to LA, witness greatness.
-        </p>
-      </section>
+
 
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
@@ -33,30 +28,17 @@ export default function HomePage() {
           </Link>
         </div>
         <div className={styles.about}>
+          <Image 
+            src={lebronImg} 
+            alt="LeBron James Background" 
+            fill 
+            className={styles.aboutBgImage}
+          />
+          <div className={styles.aboutOverlay}></div>
           <div className={styles.aboutContent}>
             <p className={`${styles.cardText} ${styles.aboutText}`}>
-              LeBron Raymone James Sr. is an American professional basketball player for the Los Angeles Lakers.
-              Widely considered one of the greatest players in NBA history, James is frequently compared to Michael Jordan
-              in debates over the greatest basketball player of all time. He has won four NBA championships, four NBA MVP awards,
-              four NBA Finals MVP awards, and two Olympic gold medals.
+              The kid from Akron who became a King. Redefining greatness for over two decades, LeBron James is more than an athlete—he’s a movement. With 4 rings, 4 MVPs, and the all-time scoring record, witness the journey of the Chosen One.
             </p>
-          </div>
-          <div className={styles.aboutImage}>
-             <div className={styles.aboutImageContainer}>
-                <Image 
-                  src={lebronImg} 
-                  alt="" 
-                  fill 
-                  className={styles.heroImageBg}
-                  aria-hidden="true"
-                />
-                <Image 
-                  src={lebronImg} 
-                  alt="LeBron James" 
-                  fill 
-                  className={styles.heroImageFg}
-                />
-             </div>
           </div>
         </div>
       </section>
