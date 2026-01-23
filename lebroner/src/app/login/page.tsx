@@ -4,6 +4,7 @@ import { authenticate } from "@/actions/auth-actions";
 import { useFormStatus } from "react-dom";
 import { useState } from "react";
 import styles from "./login.module.css";
+import Link from "next/link";
 
 function LoginButton() {
   const { pending } = useFormStatus();
@@ -59,6 +60,10 @@ export default function LoginPage() {
           )}
 
           <LoginButton />
+          
+          <p className={styles.linkText}>
+            Don&apos;t have an account? <Link href="/register" className={styles.link}>Register here</Link>
+          </p>
         </form>
       </div>
     </div>

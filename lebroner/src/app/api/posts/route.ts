@@ -50,8 +50,8 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
 
-    if (!session || session.user?.role !== "admin") {
-      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    if (!session || !session.user) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const body = await request.json();

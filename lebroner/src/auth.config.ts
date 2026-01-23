@@ -41,11 +41,7 @@ export const authConfig = {
       }
       return session;
     },
-    authorized({ auth, request: { nextUrl } }) {
-
-
-
-
+    authorized() {
       return true; 
     }
   },

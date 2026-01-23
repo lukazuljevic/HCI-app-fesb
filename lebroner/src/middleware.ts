@@ -20,6 +20,10 @@ export default auth((req) => {
      return NextResponse.next();
   }
 
+  if (req.nextUrl.pathname === "/register" && req.method === "POST") {
+     return NextResponse.next();
+  }
+
   const isMutation = ["POST", "PUT", "DELETE", "PATCH"].includes(req.method);
   
   if (isMutation && !isLoggedIn && !isApiAuthRoute) {
