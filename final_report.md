@@ -163,6 +163,18 @@ Potential future improvements:
 
 ## 12. Performance Testing
 
+Performance testing was conducted using Google PageSpeed Insights to ensure optimal user experience across devices.
+
+### Mobile Result
+
+![Mobile Speed Test](report_images/mobile_performance.png)
+
+### Desktop Result
+
+![Desktop Speed Test](report_images/desktop_performance.png)
+
+The application achieves high performance scores, ensuring fast load times and responsiveness.
+
 
 ---
 

@@ -19,7 +19,7 @@
 ### Semester Project
 
 - Link to your production version: [**Production Version**](https://lebroner.vercel.app) <!-- Replace with actual URL -->
-- Link to your final report: ~~**Final Report**~~ <!-- Replace with actual URL -->
+- Link to your final report: [**Final Report**](final_report.md) <!-- Replace with actual URL -->
 
 <!-- Add more as necessary -->
 
