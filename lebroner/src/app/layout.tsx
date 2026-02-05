@@ -1,8 +1,13 @@
-import React from "react";
+import type { Metadata } from "next";
 import "../globals.css";
 import { Providers } from "./providers";
 import Nav from "@/components/Nav/Nav";
 import Footer from "@/components/Footer/Footer";
+
+export const metadata: Metadata = {
+  title: "Lebroner - The LeBron James Fan Page",
+  description: "The ultimate fan hub for LeBron James. Watch highlights, explore records, and follow the journey of the King.",
+};
 
 export default function RootLayout({
   children,
