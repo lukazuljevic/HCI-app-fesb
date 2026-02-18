@@ -6,7 +6,7 @@ import { useHighlights, usePosts } from "@/hooks/use-queries";
 import { ROUTES } from "@/constants/routes";
 import Carousel from "@/components/Carousel/Carousel";
 import Image from "next/image";
-import lebronImg from "../assets/lebron.jpg";
+import heroImg from "../assets/lebron_dunking.webp";
 import HighlightCard from "@/components/HighlightCard/HighlightCard";
 
 export default function HomePage() {
@@ -19,27 +19,26 @@ export default function HomePage() {
   return (
     <div className={styles.container}>
 
-
-      <section className={styles.section}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>About The King</h2>
-          <Link href={ROUTES.ABOUT} className={styles.viewAllBtn}>
-            Read More
+      <section className={styles.hero}>
+        <Image
+          src={heroImg}
+          alt="LeBron James rising for a shot"
+          fill
+          priority
+          className={styles.heroBgImage}
+        />
+        <div className={styles.heroOverlay}></div>
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroHeadline}>
+            Built Different.<br />
+            <span className={styles.heroAccent}>Born to Reign.</span>
+          </h1>
+          <p className={styles.heroSubtext}>
+            4 Rings. 4 MVPs. All-Time Scoring Leader. The kid from Akron who rewrote history.
+          </p>
+          <Link href={ROUTES.ABOUT} className={styles.heroCta}>
+            His Legacy
           </Link>
-        </div>
-        <div className={styles.about}>
-          <Image 
-            src={lebronImg} 
-            alt="LeBron James Background" 
-            fill 
-            className={styles.aboutBgImage}
-          />
-          <div className={styles.aboutOverlay}></div>
-          <div className={styles.aboutContent}>
-            <p className={`${styles.cardText} ${styles.aboutText}`}>
-              The kid from Akron who became a King. Redefining greatness for over two decades, LeBron James is more than an athlete—he’s a movement. With 4 rings, 4 MVPs, and the all-time scoring record, witness the journey of the Chosen One.
-            </p>
-          </div>
         </div>
       </section>
 
