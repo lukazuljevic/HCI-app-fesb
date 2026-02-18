@@ -191,6 +191,13 @@
     background: #222;
 }
 
+.cardPlaceholder {
+  background: linear-gradient(135deg, #0e0e1a 0%, #0d1525 50%, #091a33 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .cardImageWrapper {
     height: 220px;
     overflow: hidden;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./BlogCard.module.css";
 import { type Post } from "@/db/schema";
 import { useDeletePost } from "@/hooks/use-mutations";
@@ -5,11 +6,22 @@ import { useDeletePost } from "@/hooks/use-mutations";
 interface BlogCardProps {
   post: Post & { category?: string; author?: { name: string } };
   onClick?: () => void;
-  isAdmin?: boolean;
+  canModify?: boolean;
 }
 
-export default function BlogCard({ post, onClick, isAdmin }: BlogCardProps) {
+const PlaceholderImage = () => (
+  <div className={`${styles.image} ${styles.placeholderImage}`}>
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="3" width="20" height="18" rx="2" stroke="#555" strokeWidth="1.5"/>
+      <circle cx="8.5" cy="8.5" r="2" stroke="#555" strokeWidth="1.5"/>
+      <path d="M2 17l5-5 3 3 4-4 8 8" stroke="#555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  </div>
+);
+
+export default function BlogCard({ post, onClick, canModify }: BlogCardProps) {
   const { trigger: deletePost, isMutating } = useDeletePost();
+  const [imgError, setImgError] = useState(false);
 
   const handleDelete = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -25,23 +37,26 @@ export default function BlogCard({ post, onClick, isAdmin }: BlogCardProps) {
 
   return (
     <div className={styles.card} onClick={onClick} role="button" tabIndex={0}>
-      {isAdmin && (
-        <button 
+      {canModify && (
+        <button
             onClick={handleDelete}
             className={styles.deleteButton}
             title="Delete Post"
             disabled={isMutating}
         >
-            {isMutating ? "..." : "×"}
+            {isMutating ? "..." : "\u00d7"}
         </button>
       )}
       <div className={styles.imageWrapper}>
-        {post.imageUrl ? (
-          <img src={post.imageUrl} alt={post.title} className={styles.image} />
+        {post.imageUrl && !imgError ? (
+          <img
+            src={post.imageUrl}
+            alt={post.title}
+            className={styles.image}
+            onError={() => setImgError(true)}
+          />
         ) : (
-           <div className={`${styles.image} ${styles.placeholderImage}`}>
-             No Image
-           </div>
+          <PlaceholderImage />
         )}
       </div>
       <div className={styles.content}>
@@ -55,7 +70,7 @@ export default function BlogCard({ post, onClick, isAdmin }: BlogCardProps) {
         <div className={styles.footer}>
           <span>{new Date(post.createdAt).toLocaleDateString()}</span>
           <span className={styles.readMore}>
-            Read More <span>→</span>
+            Read More <span>&rarr;</span>
           </span>
         </div>
       </div>

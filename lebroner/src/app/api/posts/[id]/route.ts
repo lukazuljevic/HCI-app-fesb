@@ -46,24 +46,32 @@ export async function PUT(
 ) {
   try {
     const session = await auth();
-    if (!session || session.user?.role !== "admin") {
-      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    if (!session?.user?.id) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
+    const db = await getDrizzle();
+
+    const existing = await db.select().from(posts).where(eq(posts.id, id));
+    if (existing.length === 0) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    const isAuthor = existing[0].authorId === session.user.id;
+    const isAdmin = session.user.role === "admin";
+    if (!isAuthor && !isAdmin) {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+
     const body = await request.json();
     const validated = updatePostSchema.parse(body);
-    const db = await getDrizzle();
-    
+
     const updatedPost = await db
       .update(posts)
       .set({ ...validated, updatedAt: new Date() })
       .where(eq(posts.id, id))
       .returning();
-
-    if (updatedPost.length === 0) {
-      return NextResponse.json({ error: "Post not found" }, { status: 404 });
-    }
 
     return NextResponse.json(updatedPost[0]);
   } catch (error) {
@@ -80,20 +88,28 @@ export async function DELETE(
 ) {
   try {
     const session = await auth();
-    if (!session || session.user?.role !== "admin") {
-      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    if (!session?.user?.id) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
     const db = await getDrizzle();
+
+    const existing = await db.select().from(posts).where(eq(posts.id, id));
+    if (existing.length === 0) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    const isAuthor = existing[0].authorId === session.user.id;
+    const isAdmin = session.user.role === "admin";
+    if (!isAuthor && !isAdmin) {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+
     const deletedPost = await db
       .delete(posts)
       .where(eq(posts.id, id))
       .returning();
-
-    if (deletedPost.length === 0) {
-      return NextResponse.json({ error: "Post not found" }, { status: 404 });
-    }
 
     return NextResponse.json(deletedPost[0]);
   } catch (error) {

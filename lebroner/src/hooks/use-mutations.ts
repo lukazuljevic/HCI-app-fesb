@@ -31,6 +31,23 @@ export function useCreatePost() {
   return { trigger, isMutating };
 }
 
+export function useUpdatePost() {
+  const [isMutating, setIsMutating] = useState(false);
+
+  const trigger = async (id: string, data: { title?: string; content?: string; imageUrl?: string }) => {
+    setIsMutating(true);
+    try {
+      const result = await apiRequest(`/api/posts/${id}`, "PUT", data);
+      mutate("/api/posts");
+      return result;
+    } finally {
+      setIsMutating(false);
+    }
+  };
+
+  return { trigger, isMutating };
+}
+
 export function useDeletePost() {
   const [isMutating, setIsMutating] = useState(false);
 

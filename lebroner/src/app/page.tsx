@@ -64,13 +64,18 @@ export default function HomePage() {
                 const p = postWrapper.post;
                 return (
                   <div key={p.id} className={styles.card}>
-                    {p.imageUrl ? (
-                        <div className={styles.cardImageWrapper}>
-                            <img src={p.imageUrl} alt={p.title} className={styles.cardImage} />
-                        </div>
-                    ) : (
-                      <div className={styles.cardImage} />
-                    )}
+                    <div className={styles.cardImageWrapper}>
+                      <img
+                        src={p.imageUrl || ""}
+                        alt={p.title}
+                        className={styles.cardImage}
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          target.style.display = "none";
+                          target.parentElement!.classList.add(styles.cardPlaceholder);
+                        }}
+                      />
+                    </div>
                     <div className={styles.cardContent}>
                       <h3 className={styles.cardTitle}>{p.title}</h3>
                       <p className={styles.cardText}>

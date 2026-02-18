@@ -6,7 +6,7 @@ import { z } from "zod";
 
 const createPostSchema = z.object({
   title: z.string().min(1),
-  content: z.string().min(1),
+  content: z.string().min(30, "Content must be at least 30 characters"),
   imageUrl: z.string().optional(),
   category: z.enum(["News", "Game Recap", "Opinion", "Lifestyle"]).default("News"),
 });

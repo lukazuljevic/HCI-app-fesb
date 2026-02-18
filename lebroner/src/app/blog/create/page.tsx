@@ -71,17 +71,24 @@ export default function CreatePostPage() {
         </div>
         <div>
             <label className={styles.label}>Content</label>
-            <textarea 
-                value={formData.content} 
-                onChange={e => setFormData({ ...formData, content: e.target.value })} 
-                required 
+            <textarea
+                value={formData.content}
+                onChange={e => setFormData({ ...formData, content: e.target.value })}
+                required
+                minLength={30}
                 rows={10}
                 className={styles.textarea}
+                placeholder="Minimum 30 characters"
             />
+            {formData.content.length > 0 && formData.content.length < 30 && (
+              <span className={styles.charCount}>
+                {30 - formData.content.length} more characters needed
+              </span>
+            )}
         </div>
-        <button 
-            type="submit" 
-            disabled={isMutating}
+        <button
+            type="submit"
+            disabled={isMutating || formData.content.length < 30}
             className={styles.button}
         >
             {isMutating ? "Creating..." : "Publish Post"}

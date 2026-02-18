@@ -18,12 +18,13 @@ interface SelectedPost {
 interface BlogClientProps {
   isAdmin: boolean;
   isLoggedIn: boolean;
+  userId: string | null;
 }
 
-export default function BlogClient({ isAdmin, isLoggedIn }: BlogClientProps) {
+export default function BlogClient({ isAdmin, isLoggedIn, userId }: BlogClientProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { posts, isLoading } = usePosts(selectedCategory);
-  
+
   const [selectedPost, setSelectedPost] = useState<SelectedPost | null>(null);
 
   const handleCardClick = (post: Post & { category?: string }, authorName: string) => {
@@ -32,6 +33,10 @@ export default function BlogClient({ isAdmin, isLoggedIn }: BlogClientProps) {
 
   const handleCloseModal = () => {
     setSelectedPost(null);
+  };
+
+  const canModify = (postAuthorId: string) => {
+    return isAdmin || (userId !== null && userId === postAuthorId);
   };
 
   return (
@@ -58,8 +63,8 @@ export default function BlogClient({ isAdmin, isLoggedIn }: BlogClientProps) {
                 </svg>
                 Filter
             </label>
-          <select 
-            value={selectedCategory} 
+          <select
+            value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
             className={styles.select}
           >
@@ -78,11 +83,11 @@ export default function BlogClient({ isAdmin, isLoggedIn }: BlogClientProps) {
         ) : (
           <div className={styles.grid}>
             {posts.map((wrapper) => (
-              <BlogCard 
-                key={wrapper.post.id} 
-                post={wrapper.post} 
+              <BlogCard
+                key={wrapper.post.id}
+                post={wrapper.post}
                 onClick={() => handleCardClick(wrapper.post, wrapper.author?.name || "Unknown")}
-                isAdmin={isAdmin}
+                canModify={canModify(wrapper.post.authorId)}
               />
             ))}
           </div>
@@ -95,6 +100,7 @@ export default function BlogClient({ isAdmin, isLoggedIn }: BlogClientProps) {
           post={selectedPost.post}
           authorName={selectedPost.authorName}
           onClose={handleCloseModal}
+          canModify={canModify(selectedPost.post.authorId)}
         />
       )}
     </div>
