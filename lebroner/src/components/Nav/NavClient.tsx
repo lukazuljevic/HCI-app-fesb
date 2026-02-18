@@ -56,7 +56,7 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
             About
         </Link>
         <Link className={linkClass(ROUTES.HIGHLIGHT)} href={ROUTES.HIGHLIGHT} onClick={() => setIsMenuOpen(false)}>
-            Highlight
+            Highlights
         </Link>
         
 

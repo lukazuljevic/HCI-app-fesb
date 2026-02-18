@@ -59,7 +59,7 @@ export default function HighlightClient({ isAdmin }: HighlightClientProps) {
         <div className={styles.heroContent}>
             <div className={styles.heroHeader}>
                 <div>
-                   <h1 className={styles.heroTitle}>HIGHLIGHTS</h1>
+                   <h1 className={styles.heroTitle}>Highlights</h1>
                 </div>
 
             </div>
@@ -70,7 +70,7 @@ export default function HighlightClient({ isAdmin }: HighlightClientProps) {
         <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>All Time</h2>
             <div className={styles.filterBadge}>
-                <span>☒</span> All Time
+                All Time
             </div>
         </div>
          {isLoading ? <p>Loading...</p> : (

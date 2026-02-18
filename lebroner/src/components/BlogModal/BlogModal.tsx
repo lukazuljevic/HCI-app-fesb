@@ -14,6 +14,7 @@ interface BlogModalProps {
 
 export default function BlogModal({ post, authorName, onClose, canModify }: BlogModalProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const [editTitle, setEditTitle] = useState(post.title);
   const [editContent, setEditContent] = useState(post.content);
   const [editImageUrl, setEditImageUrl] = useState(post.imageUrl || "");
@@ -77,12 +78,24 @@ export default function BlogModal({ post, authorName, onClose, canModify }: Blog
     <div className={styles.overlay} onClick={handleBackdropClick}>
       <div className={styles.modal}>
         <button className={styles.closeButton} onClick={onClose} aria-label="Close modal">
-          &times;
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L17 17M17 1L1 17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+          </svg>
         </button>
 
-        {post.imageUrl && !isEditing && (
+        {!isEditing && (
           <div className={styles.imageWrapper}>
-            <img src={post.imageUrl} alt={post.title} className={styles.image} />
+            {post.imageUrl && !imgError ? (
+              <img src={post.imageUrl} alt={post.title} className={styles.image} onError={() => setImgError(true)} />
+            ) : (
+              <div className={styles.placeholderImage}>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="3" width="20" height="18" rx="2" stroke="#555" strokeWidth="1.5"/>
+                  <circle cx="8.5" cy="8.5" r="2" stroke="#555" strokeWidth="1.5"/>
+                  <path d="M2 17l5-5 3 3 4-4 8 8" stroke="#555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            )}
           </div>
         )}
 

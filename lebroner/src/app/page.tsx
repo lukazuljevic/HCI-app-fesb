@@ -8,6 +8,43 @@ import Carousel from "@/components/Carousel/Carousel";
 import Image from "next/image";
 import heroImg from "../assets/lebron_dunking.webp";
 import HighlightCard from "@/components/HighlightCard/HighlightCard";
+import { useState } from "react";
+
+function PostCard({ p, authorName }: { p: { id: string; imageUrl: string | null; title: string; content: string }; authorName: string }) {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <div className={styles.card}>
+      <div className={styles.cardImageWrapper}>
+        {p.imageUrl && !imgError ? (
+          <img
+            src={p.imageUrl}
+            alt={p.title}
+            className={styles.cardImage}
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className={styles.cardPlaceholder}>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="3" width="20" height="18" rx="2" stroke="#555" strokeWidth="1.5"/>
+              <circle cx="8.5" cy="8.5" r="2" stroke="#555" strokeWidth="1.5"/>
+              <path d="M2 17l5-5 3 3 4-4 8 8" stroke="#555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        )}
+      </div>
+      <div className={styles.cardContent}>
+        <h3 className={styles.cardTitle}>{p.title}</h3>
+        <p className={styles.cardText}>
+          {p.content.substring(0, 100)}...
+        </p>
+        <span className={styles.cardAuthor}>
+          By {authorName}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   const { posts, isLoading: postsLoading } = usePosts();
@@ -60,34 +97,13 @@ export default function HomePage() {
           
              <div className={styles.carouselContainer}>
               <Carousel>
-              {latestPosts.map((postWrapper) => {
-                const p = postWrapper.post;
-                return (
-                  <div key={p.id} className={styles.card}>
-                    <div className={styles.cardImageWrapper}>
-                      <img
-                        src={p.imageUrl || ""}
-                        alt={p.title}
-                        className={styles.cardImage}
-                        onError={(e) => {
-                          const target = e.currentTarget;
-                          target.style.display = "none";
-                          target.parentElement!.classList.add(styles.cardPlaceholder);
-                        }}
-                      />
-                    </div>
-                    <div className={styles.cardContent}>
-                      <h3 className={styles.cardTitle}>{p.title}</h3>
-                      <p className={styles.cardText}>
-                        {p.content.substring(0, 100)}...
-                      </p>
-                      <span className={styles.cardAuthor}>
-                        By {postWrapper.author?.name || 'Unknown'}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
+              {latestPosts.map((postWrapper) => (
+                <PostCard
+                  key={postWrapper.post.id}
+                  p={postWrapper.post}
+                  authorName={postWrapper.author?.name || 'Unknown'}
+                />
+              ))}
             </Carousel>
            </div>
         ) : ( 

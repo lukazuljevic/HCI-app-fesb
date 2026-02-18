@@ -65,14 +65,13 @@ height: 40vh;
 }
 
 .filterBadge {
-    background: var(--color-text-muted);
-    color: var(--color-text-secondary);
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 .filterContainer {
     display: flex;
