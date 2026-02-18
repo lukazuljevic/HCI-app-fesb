@@ -6,14 +6,13 @@ import { useState } from "react";
 import styles from "./register.module.css";
 import Link from "next/link";
 import { ROUTES } from "@/constants/routes";
-
 import { useRouter } from "next/navigation";
 
 function RegisterButton() {
   const { pending } = useFormStatus();
   return (
-    <button 
-      type="submit" 
+    <button
+      type="submit"
       disabled={pending}
       className={styles.button}
     >
@@ -22,10 +21,19 @@ function RegisterButton() {
   );
 }
 
+interface FieldErrors {
+  name?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+}
+
 export default function RegisterPage() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [serverError, setServerError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const router = useRouter();
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,17 +41,59 @@ export default function RegisterPage() {
     confirmPassword: ""
   });
 
+  const validate = (data: typeof formData): FieldErrors => {
+    const errors: FieldErrors = {};
+
+    if (data.name.length > 0 && data.name.length < 2) {
+      errors.name = "Name must be at least 2 characters";
+    }
+
+    if (data.email.length > 0 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    if (data.password.length > 0 && data.password.length < 6) {
+      errors.password = "Password must be at least 6 characters";
+    }
+
+    if (data.confirmPassword.length > 0 && data.password !== data.confirmPassword) {
+      errors.confirmPassword = "Passwords do not match";
+    }
+
+    return errors;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const updated = { ...formData, [name]: value };
+    setFormData(updated);
+    setServerError("");
+
+    if (touched[name]) {
+      setFieldErrors(validate(updated));
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+    setTouched(prev => ({ ...prev, [name]: true }));
+    setFieldErrors(validate(formData));
+  };
+
+  const inputClass = (field: keyof FieldErrors) => {
+    if (touched[field] && fieldErrors[field]) return `${styles.input} ${styles.inputError}`;
+    return styles.input;
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
         <h1 className={styles.title}>Register</h1>
-        
+
         <form action={async () => {
+            setFieldErrors({});
+            setServerError("");
+
             const submitData = new FormData();
             submitData.append("name", formData.name);
             submitData.append("email", formData.email);
@@ -53,63 +103,80 @@ export default function RegisterPage() {
             const res = await register(submitData);
             if (res.success) {
                 router.push(ROUTES.LOGIN);
+            } else if (res.fieldErrors) {
+                setFieldErrors(res.fieldErrors);
+                setTouched({ name: true, email: true, password: true, confirmPassword: true });
             } else if (res.message) {
-                setErrorMessage(res.message);
+                setServerError(res.message);
             }
         }}>
           <div className={styles.inputGroup}>
             <label className={styles.label}>Name</label>
-            <input 
-              name="name" 
-              type="text" 
-              required 
-              className={styles.input}
+            <input
+              name="name"
+              type="text"
+              required
+              className={inputClass("name")}
               value={formData.name}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
+            {touched.name && fieldErrors.name && (
+              <span className={styles.fieldError}>{fieldErrors.name}</span>
+            )}
           </div>
 
           <div className={styles.inputGroup}>
             <label className={styles.label}>Email</label>
-            <input 
-              name="email" 
-              type="email" 
-              required 
-              className={styles.input}
+            <input
+              name="email"
+              type="email"
+              required
+              className={inputClass("email")}
               value={formData.email}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
+            {touched.email && fieldErrors.email && (
+              <span className={styles.fieldError}>{fieldErrors.email}</span>
+            )}
           </div>
-          
+
           <div className={styles.inputGroup}>
             <label className={styles.label}>Password</label>
-            <input 
-              name="password" 
-              type="password" 
-              required 
-              className={styles.input}
-              minLength={6}
+            <input
+              name="password"
+              type="password"
+              required
+              className={inputClass("password")}
               value={formData.password}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
+            {touched.password && fieldErrors.password && (
+              <span className={styles.fieldError}>{fieldErrors.password}</span>
+            )}
           </div>
 
           <div className={styles.inputGroup}>
             <label className={styles.label}>Confirm Password</label>
-            <input 
-              name="confirmPassword" 
-              type="password" 
-              required 
-              className={styles.input}
-              minLength={6}
+            <input
+              name="confirmPassword"
+              type="password"
+              required
+              className={inputClass("confirmPassword")}
               value={formData.confirmPassword}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
+            {touched.confirmPassword && fieldErrors.confirmPassword && (
+              <span className={styles.fieldError}>{fieldErrors.confirmPassword}</span>
+            )}
           </div>
 
-          {errorMessage && (
+          {serverError && (
             <p className={styles.errorMessage}>
-              {errorMessage}
+              {serverError}
             </p>
           )}
 
