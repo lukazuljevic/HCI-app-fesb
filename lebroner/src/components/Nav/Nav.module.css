@@ -111,6 +111,15 @@
   width: 80%;
 }
 
+.activeLink {
+  color: var(--color-primary);
+}
+
+.activeLink::after {
+  width: 80%;
+  background: var(--color-primary);
+}
+
 
 .authContainer {
   display: flex;

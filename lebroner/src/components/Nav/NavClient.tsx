@@ -7,6 +7,7 @@ import { logout } from "@/actions/auth-actions";
 import Image from "next/image";
 import logo from "../../assets/logo.png";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import type { Session } from "next-auth";
 
 interface NavClientProps {
@@ -16,9 +17,15 @@ interface NavClientProps {
 
 const NavClient = ({ session, isAdmin }: NavClientProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const linkClass = (href: string) => {
+    const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+    return `${styles.link} ${isActive ? styles.activeLink : ""}`;
   };
 
   return (
@@ -42,13 +49,13 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
       </div>
 
       <nav className={`${styles.navLinks} ${isMenuOpen ? styles.showMenu : ''}`}>
-        <Link className={styles.link} href={ROUTES.BLOG} onClick={() => setIsMenuOpen(false)}>
+        <Link className={linkClass(ROUTES.BLOG)} href={ROUTES.BLOG} onClick={() => setIsMenuOpen(false)}>
             Blog
         </Link>
-        <Link className={styles.link} href={ROUTES.ABOUT} onClick={() => setIsMenuOpen(false)}>
+        <Link className={linkClass(ROUTES.ABOUT)} href={ROUTES.ABOUT} onClick={() => setIsMenuOpen(false)}>
             About
         </Link>
-        <Link className={styles.link} href={ROUTES.HIGHLIGHT} onClick={() => setIsMenuOpen(false)}>
+        <Link className={linkClass(ROUTES.HIGHLIGHT)} href={ROUTES.HIGHLIGHT} onClick={() => setIsMenuOpen(false)}>
             Highlight
         </Link>
         
