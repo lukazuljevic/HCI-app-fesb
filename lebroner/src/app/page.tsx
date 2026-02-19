@@ -98,11 +98,12 @@ export default function HomePage() {
              <div className={styles.carouselContainer}>
               <Carousel>
               {latestPosts.map((postWrapper) => (
-                <PostCard
-                  key={postWrapper.post.id}
-                  p={postWrapper.post}
-                  authorName={postWrapper.author?.name || 'Unknown'}
-                />
+                <div key={postWrapper.post.id} className={styles.blogWrapper}>
+                  <PostCard
+                    p={postWrapper.post}
+                    authorName={postWrapper.author?.name || 'Unknown'}
+                  />
+                </div>
               ))}
             </Carousel>
            </div>

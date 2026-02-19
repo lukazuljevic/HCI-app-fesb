@@ -66,12 +66,17 @@
 
 @media (max-width: 600px) {
   .carouselContainer {
-    padding: 0 30px;
+    padding: 0 35px;
   }
-}
 
-@media (max-width: 600px) {
   .slide {
-    flex: 0 0 100%; 
+    flex: 0 0 100%;
+    padding: 0 5px;
+  }
+
+  .arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
   }
 }

@@ -5,10 +5,12 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 const createPostSchema = z.object({
-  title: z.string().min(1),
+  title: z.string().min(1).max(30, "Title must be at most 30 characters"),
   content: z.string().min(30, "Content must be at least 30 characters"),
   imageUrl: z.string().optional(),
-  category: z.enum(["News", "Game Recap", "Opinion", "Lifestyle"]).default("News"),
+  category: z
+    .enum(["News", "Game Recap", "Opinion", "Lifestyle"])
+    .default("News"),
 });
 
 import { auth } from "@/auth";
@@ -33,16 +35,23 @@ export async function GET(request: Request) {
       .$dynamic();
 
     if (category && category !== "All") {
-        const validCategory = category as "News" | "Game Recap" | "Opinion" | "Lifestyle";
-        query = query.where(eq(posts.category, validCategory));
+      const validCategory = category as
+        | "News"
+        | "Game Recap"
+        | "Opinion"
+        | "Lifestyle";
+      query = query.where(eq(posts.category, validCategory));
     }
 
     const allPosts = await query;
-      
+
     return NextResponse.json(allPosts);
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch posts" },
+      { status: 500 },
+    );
   }
 }
 
@@ -68,12 +77,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json(newPost[0], { status: 201 });
   } catch (error: any) {
-    if (error?.errors) { 
-        return NextResponse.json({ errors: error.errors }, { status: 400 });
+    if (error?.errors) {
+      return NextResponse.json({ errors: error.errors }, { status: 400 });
     }
     return NextResponse.json(
       { message: "Error creating post", error: error.message },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

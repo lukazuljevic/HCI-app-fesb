@@ -12,7 +12,12 @@ interface BlogModalProps {
   canModify?: boolean;
 }
 
-export default function BlogModal({ post, authorName, onClose, canModify }: BlogModalProps) {
+export default function BlogModal({
+  post,
+  authorName,
+  onClose,
+  canModify,
+}: BlogModalProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [editTitle, setEditTitle] = useState(post.title);
@@ -47,8 +52,14 @@ export default function BlogModal({ post, authorName, onClose, canModify }: Blog
     }
   };
 
+  const isSaveDisabled =
+    !editTitle.trim() ||
+    editTitle.length > 30 ||
+    editContent.length < 30 ||
+    isUpdating;
+
   const handleSave = async () => {
-    if (!editTitle.trim() || !editContent.trim()) return;
+    if (isSaveDisabled) return;
 
     try {
       await updatePost(post.id, {
@@ -77,22 +88,68 @@ export default function BlogModal({ post, authorName, onClose, canModify }: Blog
   return (
     <div className={styles.overlay} onClick={handleBackdropClick}>
       <div className={styles.modal}>
-        <button className={styles.closeButton} onClick={onClose} aria-label="Close modal">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L17 17M17 1L1 17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+        <button
+          className={styles.closeButton}
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L17 17M17 1L1 17"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
 
         {!isEditing && (
           <div className={styles.imageWrapper}>
             {post.imageUrl && !imgError ? (
-              <img src={post.imageUrl} alt={post.title} className={styles.image} onError={() => setImgError(true)} />
+              <img
+                src={post.imageUrl}
+                alt={post.title}
+                className={styles.image}
+                onError={() => setImgError(true)}
+              />
             ) : (
               <div className={styles.placeholderImage}>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="2" y="3" width="20" height="18" rx="2" stroke="#555" strokeWidth="1.5"/>
-                  <circle cx="8.5" cy="8.5" r="2" stroke="#555" strokeWidth="1.5"/>
-                  <path d="M2 17l5-5 3 3 4-4 8 8" stroke="#555" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="2"
+                    y="3"
+                    width="20"
+                    height="18"
+                    rx="2"
+                    stroke="#555"
+                    strokeWidth="1.5"
+                  />
+                  <circle
+                    cx="8.5"
+                    cy="8.5"
+                    r="2"
+                    stroke="#555"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="M2 17l5-5 3 3 4-4 8 8"
+                    stroke="#555"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </div>
             )}
@@ -102,11 +159,14 @@ export default function BlogModal({ post, authorName, onClose, canModify }: Blog
         <div className={styles.content}>
           {isEditing ? (
             <div className={styles.editForm}>
-              <label className={styles.editLabel}>Title</label>
+              <label className={styles.editLabel}>
+                Title ({editTitle.length}/30)
+              </label>
               <input
                 type="text"
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
+                maxLength={30}
                 className={styles.editInput}
               />
               <label className={styles.editLabel}>Image URL</label>
@@ -122,13 +182,19 @@ export default function BlogModal({ post, authorName, onClose, canModify }: Blog
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 className={styles.editTextarea}
+                minLength={30}
                 rows={12}
               />
+              {editContent.length > 0 && editContent.length < 30 && (
+                <span className={styles.charCount}>
+                  {30 - editContent.length} more characters needed
+                </span>
+              )}
               <div className={styles.editActions}>
                 <button
                   onClick={handleSave}
                   className={styles.saveButton}
-                  disabled={isUpdating}
+                  disabled={isSaveDisabled}
                 >
                   {isUpdating ? "Saving..." : "Save Changes"}
                 </button>
@@ -151,7 +217,9 @@ export default function BlogModal({ post, authorName, onClose, canModify }: Blog
               <h1 className={styles.title}>{post.title}</h1>
 
               <div className={styles.meta}>
-                <span className={styles.author}>By {authorName || "Unknown"}</span>
+                <span className={styles.author}>
+                  By {authorName || "Unknown"}
+                </span>
                 <span className={styles.date}>
                   {new Date(post.createdAt).toLocaleDateString("en-US", {
                     year: "numeric",
@@ -163,7 +231,10 @@ export default function BlogModal({ post, authorName, onClose, canModify }: Blog
 
               {canModify && (
                 <div className={styles.postActions}>
-                  <button onClick={() => setIsEditing(true)} className={styles.editButton}>
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className={styles.editButton}
+                  >
                     Edit Post
                   </button>
                   <button

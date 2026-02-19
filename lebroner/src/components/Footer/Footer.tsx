@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
           <h4>Explore</h4>
           <div className={styles.links}>
             <Link href={ROUTES.HOME} className={styles.link}>Home</Link>
-            <Link href={ROUTES.BLOG} className={styles.link}>Blog</Link>
+            <Link href={ROUTES.BLOG} className={styles.link}>Blogs</Link>
             <Link href={ROUTES.HIGHLIGHT} className={styles.link}>Highlights</Link>
             <Link href={ROUTES.ABOUT} className={styles.link}>About</Link>
           </div>

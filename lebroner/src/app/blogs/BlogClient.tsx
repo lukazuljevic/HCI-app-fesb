@@ -51,7 +51,7 @@ export default function BlogClient({ isAdmin, isLoggedIn, userId }: BlogClientPr
       <div className={styles.contentWrapper}>
         <div className={styles.filters}>
           {isLoggedIn && (
-            <Link href="/blog/create" className={styles.addButton}>
+            <Link href="/blogs/create" className={styles.addButton}>
               Add New
             </Link>
           )}

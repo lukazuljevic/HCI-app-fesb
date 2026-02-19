@@ -27,7 +27,7 @@ export default function CreatePostPage() {
             imageUrl: formData.imageUrl 
         }); 
         
-        router.push("/blog");
+        router.push("/blogs");
         router.refresh();
     } catch(err) {
         console.error(err);
@@ -41,12 +41,18 @@ export default function CreatePostPage() {
       <form onSubmit={handleSubmit} className={styles.form}>
         <div>
             <label className={styles.label}>Title</label>
-            <input 
-                value={formData.title} 
-                onChange={e => setFormData({ ...formData, title: e.target.value })} 
-                required 
+            <input
+                value={formData.title}
+                onChange={e => setFormData({ ...formData, title: e.target.value })}
+                required
+                maxLength={100}
                 className={styles.input}
             />
+            {formData.title.length > 80 && (
+              <span className={styles.charCount}>
+                {100 - formData.title.length} characters remaining
+              </span>
+            )}
         </div>
         <div>
             <label className={styles.label}>Image URL (Optional)</label>
@@ -88,7 +94,7 @@ export default function CreatePostPage() {
         </div>
         <button
             type="submit"
-            disabled={isMutating || formData.content.length < 30}
+            disabled={isMutating || formData.content.length < 30 || !formData.title.trim() || formData.title.length > 100}
             className={styles.button}
         >
             {isMutating ? "Creating..." : "Publish Post"}

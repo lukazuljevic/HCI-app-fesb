@@ -50,7 +50,7 @@ const NavClient = ({ session, isAdmin }: NavClientProps) => {
 
       <nav className={`${styles.navLinks} ${isMenuOpen ? styles.showMenu : ''}`}>
         <Link className={linkClass(ROUTES.BLOG)} href={ROUTES.BLOG} onClick={() => setIsMenuOpen(false)}>
-            Blog
+            Blogs
         </Link>
         <Link className={linkClass(ROUTES.ABOUT)} href={ROUTES.ABOUT} onClick={() => setIsMenuOpen(false)}>
             About
